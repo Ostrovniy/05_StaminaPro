@@ -20,5 +20,6 @@ venv/
 
 # добавил я
 todo.txt
+todo.py
 template.txt
 .idea
