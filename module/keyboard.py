@@ -70,7 +70,7 @@ Keys_config = {
     
 }
 
-
+# Фрейм для однок кнопки на клавиатуре
 class Key(ttk.Frame):
     def __init__(self, master, key, width, font, *args, **kwargs):
         super().__init__(master, width=width, height=60, bootstyle="info", *args, **kwargs)
@@ -93,13 +93,47 @@ class Key(ttk.Frame):
         self.key.configure(bootstyle="inverse-info")
 
 
-# Таймер со всеми методами
+# Фрейм со всеми кнопками на клавиатуре, по строкам
 class Keyboard(ttk.Frame):
-    def __init__(self, master, *args, **kwargs):
+    def __init__(self, master, first_char, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
+        # Словарь со всеми кнопками {'Key': Key()}
         self.all_keys = {}
+        # Добавить каждую клавишу в линию и в текущий фрейм
+        self.create_and_place()
+        # Установить активную кнопку перед началом печати
+        self.set_acrive_kay(first_char)
 
+    def set_acrive_kay(self, char):
+        """Найти кнопку по символу, активировать ее"""
+        # НЕВ - для большой кнопки
+        #if char not in self.all_keys and char.lower() in self.all_keys:
+            #self.active_kay = self.all_keys[char.lower()]
+            #self.active_kay.active()
+
+        # Для маленькой кнопки
+        if char in self.all_keys:
+            self.active_kay = self.all_keys[char]
+            self.active_kay.active()
+
+    def update_active_kay(self, new_char):
+        """Обновить текущюю активную кнопку"""
+        # Деактивировать кнопку которая уже активная
+        self.active_kay.default()
+        # Активировать новую кнопку по символу, если символ передали
+        if new_char:
+            self.set_acrive_kay(new_char)
+
+    def test():
+        pass
+        # Если char not in self.all_keys and char.lower() in self.all_keys
+        # Значит у нас большая кнопка, и нужно активировать маленькую кнопку + шифт
+
+        # Если кнопка маленькая, то шифт нужно деактивировать если он активный
+
+    def create_and_place(self):
+        """Создаем клавиатуру, и размещаем ее, каждая кнопка в словаре"""
         self.line1 = ttk.Frame(self)
         self.line2 = ttk.Frame(self)
         self.line3 = ttk.Frame(self)
@@ -131,4 +165,4 @@ class Keyboard(ttk.Frame):
         self.line2.pack(anchor='w')        
         self.line3.pack(anchor='w')        
         self.line4.pack(anchor='w')        
-        self.line5.pack(anchor='w')     
+        self.line5.pack(anchor='w')
