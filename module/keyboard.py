@@ -75,6 +75,9 @@ class Key(ttk.Frame):
     def __init__(self, master, key, width, font, *args, **kwargs):
         super().__init__(master, width=width, height=60, bootstyle="info", *args, **kwargs)
 
+        # Состояние кнопки, активная или нет
+        self.status = 'default'
+
         self.key = ttk.Label(self, text=key, bootstyle="inverse-info", font=font) 
         self.key.pack(side=tk.TOP, expand=True)
 
@@ -83,14 +86,19 @@ class Key(ttk.Frame):
     
     def active(self):
         """Стиль кнопки когда она активная"""
-        self.configure(bootstyle="warning")
-        self.key.configure(bootstyle="inverse-warning")
-        self.update()
+        if self.status != "active":
+            self.configure(bootstyle="warning")
+            self.key.configure(bootstyle="inverse-warning")
+            self.status = 'active'
+            self.update()
 
     def default(self):
         """Стиль кнопки по умолчанию"""
-        self.configure(bootstyle="info")
-        self.key.configure(bootstyle="inverse-info")
+        if self.status != "default":
+            self.configure(bootstyle="info")
+            self.key.configure(bootstyle="inverse-info")
+            self.status = 'default'
+            self.update()
 
 
 # Фрейм со всеми кнопками на клавиатуре, по строкам
@@ -107,15 +115,17 @@ class Keyboard(ttk.Frame):
 
     def set_acrive_kay(self, char):
         """Найти кнопку по символу, активировать ее"""
-        # НЕВ - для большой кнопки
-        #if char not in self.all_keys and char.lower() in self.all_keys:
-            #self.active_kay = self.all_keys[char.lower()]
-            #self.active_kay.active()
+        # Заглавная буква, с активацией шифт, если символа нету в смиске, но если символ для lower
+        if char not in self.all_keys and char.lower() in self.all_keys:
+            self.active_kay = self.all_keys[char.lower()] # Получить кнопку
+            self.active_kay.active() # Активировать клавишу
+            self.all_keys['Shift_L'].active() # Активировать шифт
 
         # Для маленькой кнопки
         if char in self.all_keys:
-            self.active_kay = self.all_keys[char]
-            self.active_kay.active()
+            self.active_kay = self.all_keys[char] # Получить кнопку
+            self.active_kay.active() # Активировать клавишу
+            self.all_keys['Shift_L'].default() # Деактивировать шифт если он активный
 
     def update_active_kay(self, new_char):
         """Обновить текущюю активную кнопку"""
@@ -124,13 +134,6 @@ class Keyboard(ttk.Frame):
         # Активировать новую кнопку по символу, если символ передали
         if new_char:
             self.set_acrive_kay(new_char)
-
-    def test():
-        pass
-        # Если char not in self.all_keys and char.lower() in self.all_keys
-        # Значит у нас большая кнопка, и нужно активировать маленькую кнопку + шифт
-
-        # Если кнопка маленькая, то шифт нужно деактивировать если он активный
 
     def create_and_place(self):
         """Создаем клавиатуру, и размещаем ее, каждая кнопка в словаре"""

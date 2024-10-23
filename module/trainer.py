@@ -9,7 +9,7 @@ class Trainer(ttk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
-        self.text_for_printing = ttk.StringVar(value='ВВЕДИТЕ текст ДЛЯ ПРОВЕРКИ')
+        self.text_for_printing = ttk.StringVar(value='Введи ТекСТ для ПРОв')
         self.input = ttk.Label(self, textvariable=self.text_for_printing, font='Arial 40')
         self.input.pack()
 
