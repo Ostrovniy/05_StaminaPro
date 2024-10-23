@@ -1,69 +1,66 @@
 import tkinter as tk
 from tkinter import ttk
-import ttkbootstrap as ttk
 
-# Главный фрейм для тренажера
-class Trainer(ttk.Frame):
-    def __init__(self, master, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
-        
+# Создаем главное окно
+root = tk.Tk()
+root.title("Виртуальная клавиатура")
 
-        # Переменная для отображаемого текста
-        self.text_for_printing = ttk.StringVar(value='Тестовый текст для печати')
-        self.input = ttk.Label(self, textvariable=self.text_for_printing)
-        self.input.pack(pady=10)
+# Поле ввода текста
+entry = ttk.Entry(root, width=50)
+entry.grid(row=0, column=0, columnspan=10, padx=10, pady=10)
 
-        # Таймер переменные
-        self.time = 0
-        self.running = False
-        self.timer_display = ttk.StringVar(value="00:00:00")
+# Функция для обработки нажатий на кнопки клавиатуры
+def on_button_click(char):
+    current_text = entry.get()
+    entry.delete(0, tk.END)
+    entry.insert(tk.END, current_text + char)
 
-        # Поле для отображения таймера
-        self.timer_label = ttk.Label(self, textvariable=self.timer_display, font=("Arial", 16))
-        self.timer_label.pack(pady=10)
+# Функция для удаления символа (Backspace)
+def on_backspace():
+    current_text = entry.get()
+    entry.delete(0, tk.END)
+    entry.insert(tk.END, current_text[:-1])
 
-        # Кнопки для запуска и остановки таймера
-        self.start_button = ttk.Button(self, text="Старт", command=self.start_timer)
-        self.start_button.pack(side="left", padx=5)
+# Функция для добавления пробела
+def on_space():
+    current_text = entry.get()
+    entry.delete(0, tk.END)
+    entry.insert(tk.END, current_text + " ")
 
-        self.stop_button = ttk.Button(self, text="Стоп", command=self.stop_timer)
-        self.stop_button.pack(side="right", padx=5)
+# Функция для очистки поля (Clear)
+def on_clear():
+    entry.delete(0, tk.END)
 
-        # Привязка события нажатия клавиш
-        self.focus_set()  # Устанавливаем фокус на фрейм
-        self.bind('<KeyPress>', self.key_press)
+# Создание кнопок клавиатуры
+buttons = [
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+    ['Z', 'X', 'C', 'V', 'B', 'N', 'M'],
+    ['Space', 'Backspace', 'Clear']
+]
 
-    def key_press(self, e):
-        """Обработка нажатия клавиш"""
-        first = self.text_for_printing.get()[0]
-        if e.char == first:
-            self.text_for_printing.set(self.text_for_printing.get()[1:])
+# Размещение кнопок на экране
+for i, row in enumerate(buttons):
+    for j, char in enumerate(row):
+        if char == 'Space':
+            button = ttk.Button(root, text=char, command=on_space)
+            button.grid(row=i+1, column=j, columnspan=5, padx=5, pady=5, sticky="nsew")
+        elif char == 'Backspace':
+            button = ttk.Button(root, text=char, command=on_backspace)
+            button.grid(row=i+1, column=j, padx=5, pady=5, sticky="nsew")
+        elif char == 'Clear':
+            button = ttk.Button(root, text=char, command=on_clear)
+            button.grid(row=i+1, column=j, padx=5, pady=5, sticky="nsew")
+        else:
+            button = ttk.Button(root, text=char, command=lambda c=char: on_button_click(c))
+            button.grid(row=i+1, column=j, padx=5, pady=5, sticky="nsew")
 
-    def start_timer(self):
-        """Запуск таймера"""
-        if not self.running:
-            self.running = True
-            self.update_timer()
-            self.focus_set()  # Устанавливаем фокус на фрейм
+# Настраиваем размеры колонок и строк для лучшей адаптивности
+for i in range(10):
+    root.grid_columnconfigure(i, weight=1)
+for i in range(6):
+    root.grid_rowconfigure(i, weight=1)
 
-    def stop_timer(self):
-        """Остановка таймера"""
-        self.running = False
-
-    def update_timer(self):
-        """Обновление таймера каждые 1000 мс"""
-        if self.running:
-            self.time += 1
-            minutes, seconds = divmod(self.time, 60)
-            hours, minutes = divmod(minutes, 60)
-            self.timer_display.set(f"{hours:02}:{minutes:02}:{seconds:02}")
-            # Обновляем таймер каждую секунду
-            self.after(1000, self.update_timer)
-
-# Создание окна
-root = ttk.Window(themename="darkly")
-root.geometry('1400x600')
-trainer = Trainer(root)
-trainer.pack(fill='both', expand=True, padx=10, pady=10)
-
+# Запуск приложения
 root.mainloop()
