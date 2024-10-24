@@ -2,6 +2,23 @@ import tkinter as tk
 from tkinter import ttk
 import ttkbootstrap as ttk
 
+keycode_map = {
+    '!': '1',
+    '"': '2',
+    '№': '3',
+    ';': '4',
+    '%': '5',
+    ':': '6',
+    '?': '7',
+    '*': '8',
+    '(': '9',
+    ')': '0',
+    '_': '-',
+    '+': '=',
+    '/': '\\',
+    ',': '.',
+}
+
 Keys_config = {
     'ё':{'id': 1,'line': 1, 'title': 'Ё', 'width': 60, 'font': 'Arial 25', 'keycode': 192},
     '1':{'id': 2,'line': 1, 'title': '1', 'width': 60, 'font': 'Arial 25', 'keycode': 49},
@@ -106,12 +123,9 @@ class Keyboard(ttk.Frame):
     def __init__(self, master, first_char, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
-        # Словарь со всеми кнопками {'Key': Key()}
-        self.all_keys = {}
-        # Добавить каждую клавишу в линию и в текущий фрейм
-        self.create_and_place()
-        # Установить активную кнопку перед началом печати
-        self.set_acrive_kay(first_char)
+        self.all_keys = {} # Словарь со всеми кнопками {'Key': Key()}
+        self.create_and_place() # Добавить каждую клавишу в линию и в текущий фрейм
+        self.set_acrive_kay(first_char) # Установить активную кнопку перед началом печати
 
     def set_acrive_kay(self, char):
         """Найти кнопку по символу, активировать ее"""
@@ -127,6 +141,12 @@ class Keyboard(ttk.Frame):
             self.active_kay.active() # Активировать клавишу
             self.all_keys['Shift_L'].default() # Деактивировать шифт если он активный
 
+        # Для символов, поиск по кей код
+        if char not in self.all_keys and char in keycode_map:
+            self.active_kay = self.all_keys[keycode_map[char]]
+            self.active_kay.active() # Активировать клавишу
+            self.all_keys['Shift_L'].active() # Активировать шифт
+
     def update_active_kay(self, new_char):
         """Обновить текущюю активную кнопку"""
         # Деактивировать кнопку которая уже активная
@@ -134,6 +154,7 @@ class Keyboard(ttk.Frame):
         # Активировать новую кнопку по символу, если символ передали
         if new_char:
             self.set_acrive_kay(new_char)
+
 
     def create_and_place(self):
         """Создаем клавиатуру, и размещаем ее, каждая кнопка в словаре"""

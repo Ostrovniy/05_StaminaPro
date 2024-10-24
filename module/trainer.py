@@ -9,7 +9,7 @@ class Trainer(ttk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
-        self.text_for_printing = ttk.StringVar(value='Введи ТекСТ для ПРОв')
+        self.text_for_printing = ttk.StringVar(value='!"№;%:?*()Введи ТекСТ для ПРОвЮ,.+_-=')
         self.input = ttk.Label(self, textvariable=self.text_for_printing, font='Arial 40')
         self.input.pack()
 
@@ -31,12 +31,13 @@ class Trainer(ttk.Frame):
 
     # Главный обработчик события
     def key_press(self, e):
+        print(e) # keysym ИЛИ char
         # Если строка пустая, остановить обработку события
         if not self.text_for_printing.get():
             self.timer.stop_timer()
             return
         
-        print(e) # keysym ИЛИ char
+        
         
         # если нажата кнопка совпадает с первым символом значит нажали верно
         first_char = self.get_first_char()
