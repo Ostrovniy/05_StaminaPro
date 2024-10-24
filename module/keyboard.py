@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import ttkbootstrap as ttk
+from config.language_map import get_language_map_by_lancod
 
 keycode_map = {
     '!': '1',
@@ -89,13 +90,13 @@ Keys_config = {
 
 # Фрейм для однок кнопки на клавиатуре
 class Key(ttk.Frame):
-    def __init__(self, master, key, width, font, *args, **kwargs):
+    def __init__(self, master, key, width, font_size, *args, **kwargs):
         super().__init__(master, width=width, height=60, bootstyle="info", *args, **kwargs)
 
         # Состояние кнопки, активная или нет
         self.status = 'default'
 
-        self.key = ttk.Label(self, text=key, bootstyle="inverse-info", font=font) 
+        self.key = ttk.Label(self, text=key, bootstyle="inverse-info", font=f'Arial {font_size}') 
         self.key.pack(side=tk.TOP, expand=True)
 
         self.pack_propagate(False) # Оключить подстраивания виджета под контент
@@ -124,8 +125,10 @@ class Keyboard(ttk.Frame):
         super().__init__(master, *args, **kwargs)
 
         self.all_keys = {} # Словарь со всеми кнопками {'Key': Key()}
+        self.keys_config = get_language_map_by_lancod('RU') # Языковая карта клавиатуры
         self.create_and_place() # Добавить каждую клавишу в линию и в текущий фрейм
         self.set_acrive_kay(first_char) # Установить активную кнопку перед началом печати
+        
 
     def set_acrive_kay(self, char):
         """Найти кнопку по символу, активировать ее"""
@@ -142,8 +145,8 @@ class Keyboard(ttk.Frame):
             self.all_keys['Shift_L'].default() # Деактивировать шифт если он активный
 
         # Для символов, поиск по кей код
-        if char not in self.all_keys and char in keycode_map:
-            self.active_kay = self.all_keys[keycode_map[char]]
+        if char not in self.all_keys and char in self.keys_config['autocorrect']:
+            self.active_kay = self.all_keys[self.keys_config['autocorrect'][char]]
             self.active_kay.active() # Активировать клавишу
             self.all_keys['Shift_L'].active() # Активировать шифт
 
@@ -164,26 +167,22 @@ class Keyboard(ttk.Frame):
         self.line4 = ttk.Frame(self)
         self.line5 = ttk.Frame(self)
 
-        for key, value in Keys_config.items():
+        # Создание клафиш на основе язфкового конфига и отрисовка клавиш по рядам
+        for key, value in self.keys_config['keys'].items():
             if value['line'] == 1:
-                btn = Key(self.line1, value['title'], value['width'], value['font'])
-                self.all_keys[key] = btn
+                self.all_keys[key] = Key(self.line1, value['title'], value['width'], value['font'])
 
             if value['line'] == 2:
-                btn = Key(self.line2, value['title'], value['width'], value['font'])
-                self.all_keys[key] = btn
+                self.all_keys[key] = Key(self.line2, value['title'], value['width'], value['font'])
 
             if value['line'] == 3:
-                btn = Key(self.line3, value['title'], value['width'], value['font'])
-                self.all_keys[key] = btn
+                self.all_keys[key] = Key(self.line3, value['title'], value['width'], value['font'])
 
             if value['line'] == 4:
-                btn = Key(self.line4, value['title'], value['width'], value['font'])
-                self.all_keys[key] = btn
+                self.all_keys[key] = Key(self.line4, value['title'], value['width'], value['font'])
 
             if value['line'] == 5:
-                btn = Key(self.line5, value['title'], value['width'], value['font'])
-                self.all_keys[key] = btn
+                self.all_keys[key] = Key(self.line5, value['title'], value['width'], value['font'])
 
         self.line1.pack(anchor='w')        
         self.line2.pack(anchor='w')        
