@@ -33,21 +33,25 @@ class Trainer(ttk.Frame):
 
     # Главный обработчик события
     def key_press(self, e):
-        print(e) # keysym ИЛИ char
         # Если строка пустая, остановить обработку события
         if not self.text_for_printing.get():
             self.timer.stop_timer()
             return
         
-        
-        
         # если нажата кнопка совпадает с первым символом значит нажали верно
         first_char = self.get_first_char()
 
         if e.char == first_char:
+            # Запустить таймер, если он еще не
+            self.timer.start_timer()
+            
+            # При последнем введенном верном символе, остановка таймер и клавы
+            if len(self.text_for_printing.get()) == 1:
+                self.kayboard.end() # Отключить клавиатуру в конце
+                self.timer.stop_timer() # Остановить таймер в конце
+
             # Удалить первый введенным символ, обновляем строку ввода
             self.text_for_printing.set(self.text_for_printing.get()[1:])
             # Обновить кнопку для подсветки, первый символ подсветить
             self.kayboard.update_active_kay(self.get_first_char())
-            # Запустить таймер, если он еще не
-            self.timer.start_timer()
+            
