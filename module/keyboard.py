@@ -36,8 +36,12 @@ class Key(ttk.Frame):
 
 # Фрейм со всеми кнопками на клавиатуре, по строкам
 class Keyboard(ttk.Frame):
-    def __init__(self, master, first_char, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
+    def __init__(self, master, first_char,  *args, **kwargs):
+
+        self.padding = 5 # Внутренний отступ клавиатуры, который добавлет бортики
+        self.bgstyle = "dark" # Бекграут заливка, для клавиатуры и каждой строки
+
+        super().__init__(master, bootstyle=self.bgstyle, *args, **kwargs)
 
         self.all_keys = {} # Словарь со всеми кнопками {'Key': Key()}
         self.keys_config = get_language_map_by_lancod('RU') # Языковая карта клавиатуры
@@ -78,11 +82,12 @@ class Keyboard(ttk.Frame):
 
     def create_and_place(self):
         """Создаем клавиатуру, и размещаем ее, каждая кнопка в словаре"""
-        self.line1 = ttk.Frame(self)
-        self.line2 = ttk.Frame(self)
-        self.line3 = ttk.Frame(self)
-        self.line4 = ttk.Frame(self)
-        self.line5 = ttk.Frame(self)
+        # Каждая строка имеет совй БД, что бы совпадал с БД Всей клавиатуры
+        self.line1 = ttk.Frame(self, bootstyle=self.bgstyle)
+        self.line2 = ttk.Frame(self, bootstyle=self.bgstyle)
+        self.line3 = ttk.Frame(self, bootstyle=self.bgstyle)
+        self.line4 = ttk.Frame(self, bootstyle=self.bgstyle)
+        self.line5 = ttk.Frame(self, bootstyle=self.bgstyle)
 
         # Создание клафиш на основе язфкового конфига и отрисовка клавиш по рядам
         for key, value in self.keys_config['keys'].items():
@@ -101,8 +106,10 @@ class Keyboard(ttk.Frame):
             if value['line'] == 5:
                 self.all_keys[key] = Key(self.line5, value['title'], value['width'], value['font'])
 
-        self.line1.pack(anchor='w')        
-        self.line2.pack(anchor='w')        
-        self.line3.pack(anchor='w')        
-        self.line4.pack(anchor='w')        
-        self.line5.pack(anchor='w')
+        # Каждую строку прижать к левой стороне, и отступить по 5 по бокам
+        # Первая и последняя строка отступает по 5 пикселе сверху и снизу
+        self.line1.pack(anchor='w', padx=self.padding, pady=(self.padding, 0))        
+        self.line2.pack(anchor='w', padx=self.padding)        
+        self.line3.pack(anchor='w', padx=self.padding)        
+        self.line4.pack(anchor='w', padx=self.padding)        
+        self.line5.pack(anchor='w', padx=self.padding, pady=(0, self.padding))
