@@ -10,16 +10,26 @@ class Trainer(ttk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
-        text = 'годы горы груз гиря шаг шарм шрам штык шифр шить шубу шейх пена пища плащ прыщ щит щель щека щука баня буря бусы боец юбка юрта юнец юнга юмор цирк царь цель цех цена цвет лица лиса лето луга луна лыко лыжи лужа ложа жало жрец жмот жар жгут'
+        text = 'годы горы груз гиря шаг шарм шрам штык'
 
         self.text_for_printing = ttk.StringVar(value=text) # Текст который нужно печатать
         self.text_done = ttk.StringVar(value='') # Текст который уже напечатали
 
-        self.timer = Timer(self)
-        self.timer.pack()
+        # -------------------------------------------------------------------------------------------------
+        self.box = ttk.Frame(self)
+        self.box.pack(fill=tk.X, pady=(10,0))
 
-        self.input2 = Input(self, text=self.text_for_printing, textdone=self.text_done)
-        #self.input2.pack(fill=tk.X) 
+        self.title = ttk.Label(self.box, text='Урок: печачать жр-зн', anchor='w', font=f'Arial 14 bold')
+        self.title.pack(side=tk.LEFT, anchor='w')
+
+        self.record = ttk.Label(self.box, text='Рекорд: 220 з/м', anchor='e', font=f'Arial 14')
+        self.record.pack(side=tk.LEFT, anchor='e', expand=True, padx=(0, 10))
+
+        self.timer = Timer(self.box)
+        self.timer.pack(side=tk.LEFT, anchor='e')
+        # -------------------------------------------------------------------------------------------------
+
+        self.input = Input(self, text=self.text_for_printing, textdone=self.text_done)
 
         # Создаем клавиатуру и активируем первый символ для ввода
         self.kayboard = Keyboard(self, first_char=self.get_first_char())
@@ -52,6 +62,7 @@ class Trainer(ttk.Frame):
             if len(self.text_for_printing.get()) == 1:
                 self.kayboard.end() # Отключить клавиатуру в конце
                 self.timer.stop_timer() # Остановить таймер в конце
+                self.input.end() # Покрасить граниуц в зеленый
 
             # Обновить переменную напечатанного текста
             if len(self.text_done.get()) >= 12:

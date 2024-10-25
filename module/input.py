@@ -7,7 +7,7 @@ class Input(ttk.Frame):
     def __init__(self, master, text, textdone, *args, **kwargs):
         self.height = 100 # (1) Высота фрейма в пикселяд 
 
-        super().__init__(master, bootstyle="primary", height=self.height, *args, **kwargs) # secondary
+        super().__init__(master, bootstyle="primary", height=self.height, *args, **kwargs) #
 
         self.columnconfigure((0, 1), weight=1, uniform='a') # Две колокнпи делят 50 на 50 екран
         self.rowconfigure(0, weight=1, uniform='a') # Одна строка занимает всю высоту екрана
@@ -23,3 +23,7 @@ class Input(ttk.Frame):
 
         # (2) Поле ввода растянуть на всю доступную ширину
         self.pack(fill=tk.X, pady=10)
+    
+    def end(self):
+        """Сцена цвета обводки на зеленый, успешное завершение ввода"""
+        self.configure(bootstyle="success")

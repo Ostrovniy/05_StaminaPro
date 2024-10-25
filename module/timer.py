@@ -10,7 +10,7 @@ class Timer(ttk.Label):
         
         self.timer_display = ttk.StringVar(value="00:00")
 
-        super().__init__(master, font=("Arial", 16), textvariable=self.timer_display, *args, **kwargs)
+        super().__init__(master, font=("Arial", 14), textvariable=self.timer_display, *args, **kwargs)
 
     def start_timer(self):
         """Запуск таймера"""
