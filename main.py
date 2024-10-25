@@ -10,7 +10,7 @@ class App(ttk.Window):
         self.geometry('1400x600')
 
         #Trainer(self).pack(expand=True, fill=tk.BOTH)
-        Trainer(self).pack()
+        Trainer(self).pack(expand=True)
 
 if __name__ == '__main__':
     app = App()

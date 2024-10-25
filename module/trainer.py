@@ -3,12 +3,13 @@ from tkinter import ttk
 import ttkbootstrap as ttk
 from module.timer import Timer
 from module.keyboard import Keyboard
+from module.progressbar import HorizontalProgressbar
 from module.input import Input
 
 # Главный фрейм для тренажера
 class Trainer(ttk.Frame):
     def __init__(self, master, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
+        super().__init__(master, bootstyle="danger", *args, **kwargs)
 
         text = 'годы горы груз гиря шаг шарм шрам штык'
         self.len_chars = len(text)
@@ -30,59 +31,60 @@ class Trainer(ttk.Frame):
         self.timer.pack(side=tk.LEFT, anchor='e')
         # -------------------------------------------------------------------------------------------------
 
-        self.input = Input(self, text=self.text_for_printing, textdone=self.text_done)
-
-        # горизонтальный Progressbar
-        self.var1 = tk.IntVar(value=0)
-
-        # value=90 неактивная, так как указан variable
-        self.pb1 = ttk.Progressbar(self, orient=tk.HORIZONTAL, maximum=len(text), mode='determinate', variable=self.var1, bootstyle="success-striped")
-        self.pb1.pack(pady=(0,0), fill=tk.X)
-
-        # Создаем клавиатуру и активируем первый символ для ввода
-        self.kayboard = Keyboard(self, first_char=self.get_first_char())
-        self.kayboard.pack()
+        self.input = Input(self, self.text_for_printing, self.text_done)    # Текст для печати и напечатанный текст
+        self.progres_bar = HorizontalProgressbar(self,len(text))            # Шкала выполнения, насколько текст уже напечатан
+        self.kayboard = Keyboard(self, self.get_first_char())               # Клавиатура, передаем первый символл для подсветки его перед началом печати
 
         self.focus_set()  # Устанавливаем фокус на фрейм
         self.bind('<KeyPress>', self.key_press)
 
     def get_first_char(self):
-        """Певый символ строки или false если символов не осталось"""
+        """ Певый символ строки или false если символов не осталось """
         if self.text_for_printing.get():
             return self.text_for_printing.get()[0]
         return False
+    
+    def is_last_char(self):
+        """ Вводимый символ явзяеться последним символовм ? """
+        return len(self.text_for_printing.get()) == 1
+    
+    def is_no_char(self):
+        """ True если символов для печати не осталось """
+        return not self.text_for_printing.get()
+    
+    def updata_text_done(self):
+        """ Обновить текст который уже напечатан, переменная хранит максимум 12 символов
+        Для корректного отображения в поле ввода, размер фрейма и шрифта влияет на колич
+        ество символов которые можно отобразить """
+        if len(self.text_done.get()) >= 12:
+            self.text_done.set(self.text_done.get()[1:] + self.get_first_char())
+        else:
+            self.text_done.set(self.text_done.get() + self.text_for_printing.get()[0])
 
-    # Главный обработчик события
+    def update_text_for_printing(self):
+        """ Удалить первый символ текста для печати, обновления текста воода """
+        self.text_for_printing.set(self.text_for_printing.get()[1:])
+        
     def key_press(self, e):
-        # Если строка пустая, остановить обработку события
-        if not self.text_for_printing.get():
+        """ Обработка события нажатия на клавиатуру """
+        # Все символы напечатаны
+        if self.is_no_char():
             self.timer.stop_timer()
             return
         
-        # если нажата кнопка совпадает с первым символом значит нажали верно
-        first_char = self.get_first_char()
+        # Напечатали ожыдаемый символ
+        if e.char == self.get_first_char():
+            self.timer.start_timer() # Запустить таймер, если он еще не запуще
+            self.progres_bar.update_progress() #Обновить прогрес бар +1
 
-        if e.char == first_char:
-            # Запустить таймер, если он еще не
-            self.timer.start_timer()
-
-            self.var1.set(self.var1.get()+1) #Обновить прогрес бар
-
-            # При последнем введенном верном символе, остановка таймер и клавы
-            if len(self.text_for_printing.get()) == 1:
-                self.kayboard.end() # Отключить клавиатуру в конце
+            # Завершение ввода, когда ввели последний символ
+            if self.is_last_char():
                 self.timer.stop_timer() # Остановить таймер в конце
+                self.kayboard.end() # Отключить клавиатуру в конце
                 self.input.end() # Покрасить граниуц в зеленый
                 print(f'Скорость печати: {(self.len_chars/self.timer.time)*60}')
 
-            # Обновить переменную напечатанного текста
-            if len(self.text_done.get()) >= 12:
-                self.text_done.set(self.text_done.get()[1:]+first_char)
-            else:
-                self.text_done.set(self.text_done.get()+self.text_for_printing.get()[0])
-
-            # Удалить первый введенным символ, обновляем строку ввода
-            self.text_for_printing.set(self.text_for_printing.get()[1:])
-            # Обновить кнопку для подсветки, первый символ подсветить
-            self.kayboard.update_active_kay(self.get_first_char())
+            self.updata_text_done() # Обновить текст который уже напечатан
+            self.update_text_for_printing() # Удалить первый введенным символ, обновляем строку ввода
+            self.kayboard.update_active_kay(self.get_first_char()) # Обновить кнопку для подсветки, первый символ подсветить
             

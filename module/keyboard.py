@@ -18,7 +18,7 @@ class Key(ttk.Frame):
         self.pack(side=tk.LEFT, padx=2, pady=2)
     
     def active(self):
-        """Стиль кнопки когда она активная"""
+        """Установить стиль клавишы "Активная" если стиль отличаеться"""
         if self.status != "active":
             self.configure(bootstyle="warning")
             self.key.configure(bootstyle="inverse-warning")
@@ -26,7 +26,7 @@ class Key(ttk.Frame):
             self.update()
 
     def default(self):
-        """Стиль кнопки по умолчанию"""
+        """Установить стиль клавишы "Поумолчанию" если стиль отличаеться"""
         if self.status != "default":
             self.configure(bootstyle="info")
             self.key.configure(bootstyle="inverse-info")
@@ -39,7 +39,7 @@ class Keyboard(ttk.Frame):
     def __init__(self, master, first_char,  *args, **kwargs):
 
         self.padding = 5 # Внутренний отступ клавиатуры, который добавлет бортики
-        self.bgstyle = "dark" # Бекграут заливка, для клавиатуры и каждой строки
+        self.bgstyle = "dark" # Бекграут заливка, для клавиатуры и каждой строки dark
 
         super().__init__(master, bootstyle=self.bgstyle, *args, **kwargs)
 
@@ -47,6 +47,8 @@ class Keyboard(ttk.Frame):
         self.keys_config = get_language_map_by_lancod('RU') # Языковая карта клавиатуры
         self.create_and_place() # Добавить каждую клавишу в линию и в текущий фрейм
         self.set_acrive_kay(first_char) # Установить активную кнопку перед началом печати
+
+        self.pack() # Разместить клавиатуру
         
     def set_acrive_kay(self, char):
         """Найти кнопку по символу, активировать ее"""
