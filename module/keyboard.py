@@ -3,16 +3,20 @@ from tkinter import ttk
 import ttkbootstrap as ttk
 from config.language_map import get_language_map_by_lancod
 
-# Фрейм для однок кнопки на клавиатуре
 class Key(ttk.Frame):
-    def __init__(self, master, key, width, font_size, *args, **kwargs):
-        super().__init__(master, width=width, height=60, bootstyle="info", *args, **kwargs)
+    def __init__(self, master, key, width, height, font_size, *args, **kwargs):
+        """Фрейм клавиши, это одна клавиша которая будет расположена в фрейме клавиатуре
+        -- width: ширина клавиши, указана в языковой карте для каждой клавиши
+        -- height: Высота клавиши по умолчанию для всех одинаковая 85 пикселей (было 60)
+        -- font_size: Размер шрифта клавиши, обычная буква имеет больше размер чем capslock, указана в языковой карте для каждой клавиши
+        -- bootstyle: Цвет клавиши по умолчанию (Берюзовый)"""
+        super().__init__(master, width=width, height=height, bootstyle="info", *args, **kwargs)
 
         # Состояние кнопки, активная или нет
         self.status = 'default'
 
-        self.key = ttk.Label(self, text=key, bootstyle="inverse-info", font=f'Arial {font_size}') 
-        self.key.pack(side=tk.TOP, expand=True)
+        self.key = ttk.Label(self, text=key, bootstyle="inverse-info", font=f'Arial {font_size}', anchor='center') # inverse-info / primary
+        self.key.pack(expand=True, fill=tk.Y) # Растягивать по вертикале не обязательно
 
         self.pack_propagate(False) # Оключить подстраивания виджета под контент
         self.pack(side=tk.LEFT, padx=2, pady=2)
@@ -91,22 +95,25 @@ class Keyboard(ttk.Frame):
         self.line4 = ttk.Frame(self, bootstyle=self.bgstyle)
         self.line5 = ttk.Frame(self, bootstyle=self.bgstyle)
 
+        # Высотка клавиш, одна общая для всех клавиш
+        height =  self.keys_config['height']
+
         # Создание клафиш на основе язфкового конфига и отрисовка клавиш по рядам
         for key, value in self.keys_config['keys'].items():
             if value['line'] == 1:
-                self.all_keys[key] = Key(self.line1, value['title'], value['width'], value['font'])
+                self.all_keys[key] = Key(self.line1, value['title'], value['width'], height, value['font'])
 
             if value['line'] == 2:
-                self.all_keys[key] = Key(self.line2, value['title'], value['width'], value['font'])
+                self.all_keys[key] = Key(self.line2, value['title'], value['width'], height, value['font'])
 
             if value['line'] == 3:
-                self.all_keys[key] = Key(self.line3, value['title'], value['width'], value['font'])
+                self.all_keys[key] = Key(self.line3, value['title'], value['width'], height, value['font'])
 
             if value['line'] == 4:
-                self.all_keys[key] = Key(self.line4, value['title'], value['width'], value['font'])
+                self.all_keys[key] = Key(self.line4, value['title'], value['width'], height, value['font'])
 
             if value['line'] == 5:
-                self.all_keys[key] = Key(self.line5, value['title'], value['width'], value['font'])
+                self.all_keys[key] = Key(self.line5, value['title'], value['width'], height, value['font'])
 
         # Каждую строку прижать к левой стороне, и отступить по 5 по бокам
         # Первая и последняя строка отступает по 5 пикселе сверху и снизу

@@ -7,7 +7,7 @@ class App(ttk.Window):
     def __init__(self):
         super().__init__(themename='darkly') #darkly
         self.title('StaminaPro')
-        self.geometry('1400x600')
+        self.geometry('1500x900')
 
         #Trainer(self).pack(expand=True, fill=tk.BOTH)
         Trainer(self).pack(expand=True)
