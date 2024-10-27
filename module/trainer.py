@@ -9,7 +9,7 @@ from module.input import Input
 # Главный фрейм для тренажера
 class Trainer(ttk.Frame):
     def __init__(self, master, lesson_data, *args, **kwargs):
-        super().__init__(master, bootstyle="danger", *args, **kwargs)
+        super().__init__(master, bootstyle="default", *args, **kwargs)
 
         self.lesson = lesson_data                   # Урок который будет проходить {title: '', ....}
         self.title = self.lesson['title']           # Название урока
@@ -19,6 +19,7 @@ class Trainer(ttk.Frame):
 
         self.text_for_printing = ttk.StringVar(value=self.text)     # Текст который нужно печатать
         self.text_done = ttk.StringVar(value='')                    # Текст который уже напечатали
+        self.print_speed = ttk.StringVar(value='Рекорт: ')          # Скорость печати текста
 
         # -------------------------------------------------------------------------------------------------
         self.box = ttk.Frame(self)
@@ -27,7 +28,7 @@ class Trainer(ttk.Frame):
         self.title_lable = ttk.Label(self.box, text=f'Урок: {self.title}', anchor='w', font=f'Arial 14 bold')
         self.title_lable.pack(side=tk.LEFT, anchor='w')
 
-        self.record = ttk.Label(self.box, text='Рекорт: 220 з/м', anchor='e', font=f'Arial 14')
+        self.record = ttk.Label(self.box, anchor='e', font=f'Arial 14', textvariable=self.print_speed)
         self.record.pack(side=tk.LEFT, anchor='e', expand=True, padx=(0, 10))
 
         self.timer = Timer(self.box)
@@ -85,7 +86,7 @@ class Trainer(ttk.Frame):
                 self.timer.stop_timer() # Остановить таймер в конце
                 self.kayboard.end() # Отключить клавиатуру в конце
                 self.input.end() # Покрасить граниуц в зеленый
-                print(f'Скорость печати: {(self.len_chars/self.timer.time)*60}')
+                self.print_speed.set(f"Скорсоть: {int((self.len_chars/self.timer.time)*60)}")
 
             self.updata_text_done() # Обновить текст который уже напечатан
             self.update_text_for_printing() # Удалить первый введенным символ, обновляем строку ввода
