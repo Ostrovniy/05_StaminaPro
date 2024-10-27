@@ -13,7 +13,21 @@ font_size = 35
 config_ru = {
     'height': width,
     'font_size': font_size,
-    'autocorrect': {'!': '1','"': '2','№': '3',';': '4','%': '5',':': '6','?': '7','*': '8','(': '9',')': '0','_': '-','+': '=','/': '\\',',': '.',},
+    'autocorrect': {'!': '1',
+                    '"': '2',
+                    '№': '3',
+                    ';': '4',
+                    '%': '5',
+                    ':': '6',
+                    '?': '7',
+                    '*': '8',
+                    '(': '9',
+                    ')': '0',
+                    '_': '-',
+                    '+': '=',
+                    '/': '\\',
+                    ',': '.',
+                    },
     'keys': {
         # Первый ряд
         'ё':{'line': 1, 'title': 'Ё', 'width': width, 'font': font_size, 'keycode': 192},
@@ -83,10 +97,105 @@ config_ru = {
     }
 }
 
+config_en = {
+    'height': width,
+    'font_size': font_size,
+    #Не все 
+    'autocorrect': {'~': '1',
+                    '!': '2',
+                    '#': '3',
+                    '$': '4',
+                    '%': '5',
+                    '^': '6',
+                    '&': '7',
+                    '*': '8',
+                    '(': '9',
+                    ')': '0',
+                    '_': '-',
+                    '+': '=',
+                    '[':'{',
+                    ']':'}',
+                    ':':';', 
+                    '"':"'", 
+                    '|':"\\", 
+                    "<":",", 
+                    ">":".", 
+                    "?":"/",
+                },
+    'keys': {
+        # Первый ряд
+        '`':{'line': 1, 'title': '`', 'width': width, 'font': font_size, 'keycode': 192},
+        '1':{'line': 1, 'title': '1', 'width': width, 'font': font_size, 'keycode': 49},
+        '2':{'line': 1, 'title': '2', 'width': width, 'font': font_size, 'keycode': 50},
+        '3':{'line': 1, 'title': '3', 'width': width, 'font': font_size, 'keycode': 51},
+        '4':{'line': 1, 'title': '4', 'width': width, 'font': font_size, 'keycode': 52},
+        '5':{'line': 1, 'title': '5', 'width': width, 'font': font_size, 'keycode': 53},
+        '6':{'line': 1, 'title': '6', 'width': width, 'font': font_size, 'keycode': 54},
+        '7':{'line': 1, 'title': '7', 'width': width, 'font': font_size, 'keycode': 55},
+        '8':{'line': 1, 'title': '8', 'width': width, 'font': font_size, 'keycode': 56},
+        '9':{'line': 1, 'title': '9', 'width': width, 'font': font_size, 'keycode': 57},
+        '0':{'line': 1, 'title': '0', 'width': width, 'font': font_size, 'keycode': 48},
+        '-':{'line': 1, 'title': '-', 'width': width, 'font': font_size, 'keycode': 189},
+        '=':{'line': 1, 'title': '=', 'width': width, 'font': font_size, 'keycode': 187},
+        'BackSpace':{'line': 1, 'title': 'BackSpace', 'width': width*2.2, 'font': int(font_size/1.5), 'keycode': 8},
+        # Второй ряд
+        'Tab':{'line': 2, 'title': 'Tab', 'width': width*1.5, 'font': int(font_size/1.5), 'keycode': 9},
+        'q':{'line': 2, 'title': 'Q', 'width': width, 'font': font_size, 'keycode': 81},
+        'w':{'line': 2, 'title': 'W', 'width': width, 'font': font_size, 'keycode': 87},
+        'e':{'line': 2, 'title': 'E', 'width': width, 'font': font_size, 'keycode': 69},
+        'r':{'line': 2, 'title': 'R', 'width': width, 'font': font_size, 'keycode': 82},
+        't':{'line': 2, 'title': 'T', 'width': width, 'font': font_size, 'keycode': 84},
+        'y':{'line': 2, 'title': 'Y', 'width': width, 'font': font_size, 'keycode': 89},
+        'u':{'line': 2, 'title': 'U', 'width': width, 'font': font_size, 'keycode': 85},
+        'i':{'line': 2, 'title': 'I', 'width': width, 'font': font_size, 'keycode': 73},
+        'o':{'line': 2, 'title': 'O', 'width': width, 'font': font_size, 'keycode': 79},
+        'p':{'line': 2, 'title': 'P', 'width': width, 'font': font_size, 'keycode': 80},
+        '[':{'line': 2, 'title': '[', 'width': width, 'font': font_size, 'keycode': 219},
+        ']':{'line': 2, 'title': ']', 'width': width, 'font': font_size, 'keycode': 221},
+        # Третий ряд
+        'Caps_Lock':{'line': 3, 'title': 'Caps Lock', 'width': width*2, 'font': int(font_size/1.5), 'keycode': 20},
+        'a':{'line': 3, 'title': 'A', 'width': width, 'font': font_size, 'keycode': 65},
+        's':{'line': 3, 'title': 'S', 'width': width, 'font': font_size, 'keycode': 83},
+        'd':{'line': 3, 'title': 'D', 'width': width, 'font': font_size, 'keycode': 68},
+        'f':{'line': 3, 'title': 'F', 'width': width, 'font': font_size, 'keycode': 79},
+        'g':{'line': 3, 'title': 'G', 'width': width, 'font': font_size, 'keycode': 71},
+        'h':{'line': 3, 'title': 'H', 'width': width, 'font': font_size, 'keycode': 72},
+        'j':{'line': 3, 'title': 'J', 'width': width, 'font': font_size, 'keycode': 74},
+        'k':{'line': 3, 'title': 'K', 'width': width, 'font': font_size, 'keycode': 75},
+        'l':{'line': 3, 'title': 'L', 'width': width, 'font': font_size, 'keycode': 76},
+        ';':{'line': 3, 'title': ';', 'width': width, 'font': font_size, 'keycode': 186},
+        "'":{'line': 3, 'title': "'", 'width': width, 'font': font_size, 'keycode': 222},
+        '\\':{'line': 3, 'title': "\\", 'width': width, 'font': font_size, 'keycode': 220},
+        # Четвертый ряд
+        'Shift_L':{'line': 4, 'title': 'Shift', 'width': width*2.8, 'font': int(font_size/1.5), 'keycode': 16},
+        'z':{'line': 4, 'title': 'Z', 'width': width, 'font': font_size, 'keycode': 90},
+        'x':{'line': 4, 'title': 'X', 'width': width, 'font': font_size, 'keycode': 88},
+        'c':{'line': 4, 'title': 'C', 'width': width, 'font': font_size, 'keycode': 67},
+        'v':{'line': 4, 'title': 'V', 'width': width, 'font': font_size, 'keycode': 86},
+        'b':{'line': 4, 'title': 'B', 'width': width, 'font': font_size, 'keycode': 66},
+        'n':{'line': 4, 'title': 'N', 'width': width, 'font': font_size, 'keycode': 78},
+        'm':{'line': 4, 'title': 'M', 'width': width, 'font': font_size, 'keycode': 77},
+        ',':{'line': 4, 'title': ',', 'width': width, 'font': font_size, 'keycode': 188},
+        '.':{'line': 4, 'title': '.', 'width': width, 'font': font_size, 'keycode': 190},
+        '/':{'line': 4, 'title': '/', 'width': width, 'font': font_size, 'keycode': 191},
+        'Shift_R':{'line': 4, 'title': 'Shift', 'width': width*2.5, 'font': int(font_size/1.5), 'keycode': 16},
+        # Пятый ряд
+        'Control_L':{'line': 5, 'title': 'Ctrl', 'width': width*1.6, 'font': int(font_size/1.5), 'keycode': 17},
+        'Win_L':{'line': 5, 'title': 'Win', 'width': width*1.3, 'font': int(font_size/1.5), 'keycode': 91},
+        'Alt_L':{'line': 5, 'title': 'Alt', 'width': width*1.4, 'font': int(font_size/1.5), 'keycode': 18},
+        ' ':{'line': 5, 'title': 'space', 'width': width*5.5, 'font': int(font_size/1.5), 'keycode': 32},
+        'Alt_R':{'line': 5, 'title': 'Alt', 'width': width*1.4, 'font': int(font_size/1.5), 'keycode': 18},
+        'Fn!':{'line': 5, 'title': 'Fn', 'width': width*1.4, 'font': int(font_size/1.5), 'keycode': 0},
+        'Menu!':{'line': 5, 'title': 'Menu', 'width': width*1.3, 'font': int(font_size/1.5), 'keycode': 0},
+        'Control_R':{'line': 5, 'title': 'Ctrl', 'width': (width*1.6)-2, 'font': int(font_size/1.5), 'keycode': 17},
+    }
+}
+
 # Возвращает нужный конфиг по коду языка
 def get_language_map_by_lancod(code='RU'):
     # Регистрация конфигов
     data = {
-        'RU': config_ru
+        'RU': config_ru,
+        'EN': config_en
     }
     return data[code]
