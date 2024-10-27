@@ -5,6 +5,7 @@ from module.timer import Timer
 from module.keyboard import Keyboard
 from module.progressbar import HorizontalProgressbar
 from module.input import Input
+from sounds._sound import Sound
 
 # Главный фрейм для тренажера
 class Trainer(ttk.Frame):
@@ -20,6 +21,9 @@ class Trainer(ttk.Frame):
         self.text_for_printing = ttk.StringVar(value=self.text)     # Текст который нужно печатать
         self.text_done = ttk.StringVar(value='')                    # Текст который уже напечатали
         self.print_speed = ttk.StringVar(value='Рекорт: ')          # Скорость печати текста
+
+        self.sound_success = Sound(path_sound="sounds/click-button.wav")
+        self.sound_error = Sound(path_sound="sounds/click-button-error.wav")
 
         # -------------------------------------------------------------------------------------------------
         self.box = ttk.Frame(self)
@@ -41,6 +45,7 @@ class Trainer(ttk.Frame):
 
         self.focus_set()  # Устанавливаем фокус на фрейм
         self.bind('<KeyPress>', self.key_press)
+        self.bind("<KeyRelease>", self.on_key_release)
 
     def get_first_char(self):
         """ Певый символ строки или false если символов не осталось """
@@ -78,6 +83,7 @@ class Trainer(ttk.Frame):
         
         # Напечатали ожыдаемый символ
         if e.char == self.get_first_char():
+            self.sound_success.start_play(e.keysym) # Музыка упешного нажатия кнопки
             self.timer.start_timer() # Запустить таймер, если он еще не запуще
             self.progres_bar.update_progress() #Обновить прогрес бар +1
 
@@ -91,4 +97,9 @@ class Trainer(ttk.Frame):
             self.updata_text_done() # Обновить текст который уже напечатан
             self.update_text_for_printing() # Удалить первый введенным символ, обновляем строку ввода
             self.kayboard.update_active_kay(self.get_first_char()) # Обновить кнопку для подсветки, первый символ подсветить
-            
+        else:
+            self.sound_error.start_play(e.keysym) # Музыка не успешного нажатия кнопки
+
+    def on_key_release(self, e):
+        """Обработка события когда кнопку отпустили"""
+        Sound.clear_event_list(e.keysym) # Очистить список мобытий музыки, если кнопка отпущена ее можно запустить повторно
