@@ -40,7 +40,7 @@ class Key(ttk.Frame):
 
 # Фрейм со всеми кнопками на клавиатуре, по строкам
 class Keyboard(ttk.Frame):
-    def __init__(self, master, first_char,  *args, **kwargs):
+    def __init__(self, master, first_char, language, *args, **kwargs):
 
         self.padding = 5 # Внутренний отступ клавиатуры, который добавлет бортики
         self.bgstyle = "dark" # Бекграут заливка, для клавиатуры и каждой строки dark
@@ -48,7 +48,7 @@ class Keyboard(ttk.Frame):
         super().__init__(master, bootstyle=self.bgstyle, *args, **kwargs)
 
         self.all_keys = {} # Словарь со всеми кнопками {'Key': Key()}
-        self.keys_config = get_language_map_by_lancod('RU') # Языковая карта клавиатуры
+        self.keys_config = get_language_map_by_lancod(language) # Языковая карта клавиатуры
         self.create_and_place() # Добавить каждую клавишу в линию и в текущий фрейм
         self.set_acrive_kay(first_char) # Установить активную кнопку перед началом печати
 

@@ -8,21 +8,24 @@ from module.input import Input
 
 # Главный фрейм для тренажера
 class Trainer(ttk.Frame):
-    def __init__(self, master, *args, **kwargs):
+    def __init__(self, master, lesson_data, *args, **kwargs):
         super().__init__(master, bootstyle="danger", *args, **kwargs)
 
-        text = 'годы горы груз гиря шаг шарм шрам штык'
-        self.len_chars = len(text)
+        self.lesson = lesson_data                   # Урок который будет проходить {title: '', ....}
+        self.title = self.lesson['title']           # Название урока
+        self.language = self.lesson['language']     # Языковая раскладка урока
+        self.text = self.lesson['text']             # Текст для печати
+        self.len_chars = len(self.text)             # Количесвто символов для печати
 
-        self.text_for_printing = ttk.StringVar(value=text) # Текст который нужно печатать
-        self.text_done = ttk.StringVar(value='') # Текст который уже напечатали
+        self.text_for_printing = ttk.StringVar(value=self.text)     # Текст который нужно печатать
+        self.text_done = ttk.StringVar(value='')                    # Текст который уже напечатали
 
         # -------------------------------------------------------------------------------------------------
         self.box = ttk.Frame(self)
         self.box.pack(fill=tk.X, pady=(10,0))
 
-        self.title = ttk.Label(self.box, text='Урок: печачать жр-зн', anchor='w', font=f'Arial 14 bold')
-        self.title.pack(side=tk.LEFT, anchor='w')
+        self.title_lable = ttk.Label(self.box, text=f'Урок: {self.title}', anchor='w', font=f'Arial 14 bold')
+        self.title_lable.pack(side=tk.LEFT, anchor='w')
 
         self.record = ttk.Label(self.box, text='Рекорт: 220 з/м', anchor='e', font=f'Arial 14')
         self.record.pack(side=tk.LEFT, anchor='e', expand=True, padx=(0, 10))
@@ -31,9 +34,9 @@ class Trainer(ttk.Frame):
         self.timer.pack(side=tk.LEFT, anchor='e')
         # -------------------------------------------------------------------------------------------------
 
-        self.input = Input(self, self.text_for_printing, self.text_done)    # Текст для печати и напечатанный текст
-        self.progres_bar = HorizontalProgressbar(self,len(text))            # Шкала выполнения, насколько текст уже напечатан
-        self.kayboard = Keyboard(self, self.get_first_char())               # Клавиатура, передаем первый символл для подсветки его перед началом печати
+        self.input = Input(self, self.text_for_printing, self.text_done)            # Текст для печати и напечатанный текст
+        self.progres_bar = HorizontalProgressbar(self,len(self.text))               # Шкала выполнения, насколько текст уже напечатан
+        self.kayboard = Keyboard(self, self.get_first_char(), self.language)        # Клавиатура, передаем первый символл для подсветки его перед началом печати
 
         self.focus_set()  # Устанавливаем фокус на фрейм
         self.bind('<KeyPress>', self.key_press)

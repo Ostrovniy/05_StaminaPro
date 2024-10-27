@@ -1,66 +1,97 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import Menu, ttk
 
-# Создаем главное окно
-root = tk.Tk()
-root.title("Виртуальная клавиатура")
+all_lesonts = {
+    'Уроки от Валерия дернова': {
+        "Уроки ао_ёъ": {
+            'аовл':{
+                'title': "аовл",
+                "language": "РУ",
+                "text": "ао оо ао оо ао оо оо оо ао оо ао оа ао оо оо оо"
+            },
+            'ыд':{
+                'title': "ыд",
+                "language": "РУ",
+                "text": "оы да ыл вд ыв лд ыв од аы дв ыл"
+            },
+        },
+        "Уроки АО_ЁЪ": {
+            'АО':{
+                'title': "АО",
+                "language": "РУ",
+                "text": "Ап Ор Ас От Ау Оф Ах Оц Ач Ош Ащ Оъ"
+            }
+        }
+    },
+    "БАЗОВЫЕ УРОКИ":{
+        "ва ол":{
+            'title': "ва ол",
+            "language": "ру",
+            "text": "аааооо ааоао оааоо аоаоа ооаоа ао оао"
+        },
+        "фы дж":{
+            'title': "фы  дж",
+            "language": "ру",
+            "text": "ыыыддд ыыдыд дыыдд ыдыды"
+        }
+    }
+}
 
-# Поле ввода текста
-entry = ttk.Entry(root, width=50)
-entry.grid(row=0, column=0, columnspan=10, padx=10, pady=10)
+class Trainer(ttk.Frame):
+    def __init__(self, parent, lesson_data):
+        super().__init__(parent)
+        self.pack(fill="both", expand=True)
+        
+        # Отображение информации об уроке
+        title = lesson_data.get('title', 'Без названия')
+        language = lesson_data.get('language', 'Неизвестно')
+        text = lesson_data.get('text', 'Текст не найден')
+        
+        ttk.Label(self, text=f"Заголовок: {title}", font=("Arial", 14, "bold")).pack(pady=5)
+        ttk.Label(self, text=f"Язык: {language}", font=("Arial", 10)).pack(pady=5)
+        ttk.Label(self, text=f"Текст урока:", font=("Arial", 10, "italic")).pack(pady=5)
+        ttk.Label(self, text=text, wraplength=400, font=("Arial", 10)).pack(pady=5)
 
-# Функция для обработки нажатий на кнопки клавиатуры
-def on_button_click(char):
-    current_text = entry.get()
-    entry.delete(0, tk.END)
-    entry.insert(tk.END, current_text + char)
+class MenuApp:
+    def __init__(self, root, config):
+        self.root = root
+        self.config = config
+        self.root.title("Динамическое меню")
+        self.current_trainer = None  # Хранение текущего фрейма Trainer
+        
+        self.create_menu()
+        
+    def create_menu(self):
+        menu_bar = Menu(self.root)
+        lessons_menu = Menu(menu_bar, tearoff=0)
+        
+        # Рекурсивное добавление категорий и уроков
+        self.add_menu_item(lessons_menu, self.config)
+        
+        # Добавляем основную кнопку "Уроки" на панель меню
+        menu_bar.add_cascade(label="Уроки", menu=lessons_menu)
+        self.root.config(menu=menu_bar)
+        
+    def add_menu_item(self, parent_menu, items):
+        for key, value in items.items():
+            if isinstance(value, dict) and 'title' not in value:
+                submenu = Menu(parent_menu, tearoff=0)
+                parent_menu.add_cascade(label=key, menu=submenu)
+                self.add_menu_item(submenu, value)
+            else:
+                parent_menu.add_command(label=value['title'], command=lambda v=value: self.show_trainer(v))
+                
+    def show_trainer(self, lesson_data):
+        # Удаление текущего фрейма Trainer, если он есть
+        if self.current_trainer is not None:
+            self.current_trainer.destroy()
+        
+        # Создание нового фрейма Trainer с передачей данных урока
+        self.current_trainer = Trainer(self.root, lesson_data)
+        self.current_trainer.pack(fill="both", expand=True)
 
-# Функция для удаления символа (Backspace)
-def on_backspace():
-    current_text = entry.get()
-    entry.delete(0, tk.END)
-    entry.insert(tk.END, current_text[:-1])
-
-# Функция для добавления пробела
-def on_space():
-    current_text = entry.get()
-    entry.delete(0, tk.END)
-    entry.insert(tk.END, current_text + " ")
-
-# Функция для очистки поля (Clear)
-def on_clear():
-    entry.delete(0, tk.END)
-
-# Создание кнопок клавиатуры
-buttons = [
-    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
-    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
-    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
-    ['Z', 'X', 'C', 'V', 'B', 'N', 'M'],
-    ['Space', 'Backspace', 'Clear']
-]
-
-# Размещение кнопок на экране
-for i, row in enumerate(buttons):
-    for j, char in enumerate(row):
-        if char == 'Space':
-            button = ttk.Button(root, text=char, command=on_space)
-            button.grid(row=i+1, column=j, columnspan=5, padx=5, pady=5, sticky="nsew")
-        elif char == 'Backspace':
-            button = ttk.Button(root, text=char, command=on_backspace)
-            button.grid(row=i+1, column=j, padx=5, pady=5, sticky="nsew")
-        elif char == 'Clear':
-            button = ttk.Button(root, text=char, command=on_clear)
-            button.grid(row=i+1, column=j, padx=5, pady=5, sticky="nsew")
-        else:
-            button = ttk.Button(root, text=char, command=lambda c=char: on_button_click(c))
-            button.grid(row=i+1, column=j, padx=5, pady=5, sticky="nsew")
-
-# Настраиваем размеры колонок и строк для лучшей адаптивности
-for i in range(10):
-    root.grid_columnconfigure(i, weight=1)
-for i in range(6):
-    root.grid_rowconfigure(i, weight=1)
-
-# Запуск приложения
-root.mainloop()
+# Пример использования
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = MenuApp(root, all_lesonts)
+    root.mainloop()
