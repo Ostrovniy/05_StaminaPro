@@ -1,31 +1,38 @@
-import tkinter as tk
-import winsound
+import pygame
 
-import tkinter as tk
-import winsound
+class Sound:
+    active_events = set()  # Используем множество для уникальных событий
 
-class TypingTrainer(tk.Frame):
-    def __init__(self, master, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
-        self.correct_sound = "sounds/click-button.wav"  # путь к звуку для правильной буквы
-        self.incorrect_sound = "sounds/click-button.wav"  # путь к звуку для ошибки
+    def __init__(self, path_sound):
+        self.path_sound = path_sound
+        pygame.mixer.init()  # Инициализация модуля смешивания
+        self.sound = pygame.mixer.Sound(path_sound)  # Загружаем звук
 
-        self.focus_set()  # Устанавливаем фокус на фрейм
+    def start_play(self, keysym):
+        """Добавляем клавишу в список если ее нету и запускаем звук"""
+        if keysym not in Sound.active_events:
+            Sound.active_events.add(keysym)
+            # Запускаем звук на новом канале, чтобы не прерывать предыдущий
+            self.sound.play()  # Звук может накладываться
 
-        self.bind("<Key>", self.check_key)
+    def stop_play(self, keysym):
+        """Удаляем клавишу из списка при отпускании"""
+        if keysym in Sound.active_events:
+            Sound.active_events.remove(keysym)
 
-    def play_sound(self, sound):
-        winsound.PlaySound(sound, winsound.SND_FILENAME | winsound.SND_ASYNC)
+# Пример использования:
+# Создаем экземпляр класса Sound для правильного звука
+sound_correct = Sound("path_to_correct_sound.wav")
+sound_incorrect = Sound("path_to_incorrect_sound.wav")
 
-    def check_key(self, event):
-        # Пример проверки на правильный ввод
-        if event.char == 'а':  # допустим, правильный ввод — 'a'
-            self.play_sound(self.correct_sound)
-        else:
-            self.play_sound(self.incorrect_sound)
+def on_key_press(e):
+    """Обработка нажатия клавиши"""
+    if e.keysym == "CorrectKey":  # Замените "CorrectKey" на нужную клавишу
+        sound_correct.start_play(e.keysym)
+    elif e.keysym == "IncorrectKey":  # Замените "IncorrectKey" на нужную клавишу
+        sound_incorrect.start_play(e.keysym)
 
-root = tk.Tk()
-root.geometry('500x500')
-trainer = TypingTrainer(root)
-trainer.pack()
-root.mainloop()
+def on_key_release(e):
+    """Обработка отпускания клавиши"""
+    sound_correct.stop_play(e.keysym)
+    sound_incorrect.stop_play(e.keysym)
