@@ -8,6 +8,110 @@ all_lesonts = {
             },
         }
     },
+    "Распространенный слова (RU)":{
+        'Топ 100':{
+            'title': "Топ 100",
+            'language': 'RU',
+            'text': 'и в не на я быть с он что весь а это как она по но они к у ты из мы за вы так мочь свой который сказать этот ее бы такой только себя один еще какой когда уже до вот год человек если весь один сам раз другой наш мой знать стать при чтобы дело жизнь кто первый очень его нет каждый новый время рука идти дом давать под слово место ли после в какой большой даже видеть оставаться выходить должен приходить быть день стоять лицо всегда хорошо три делать последний вопрос работать теперь свой дело мне между потому ничто хотеть теперь три другой ответить иметь считать работать вместе брать земля идти держать вода три вместе чтобы между снова первый там пять искать наить между мне сам стоять стараться начинать ждать без быть муж далее день раньше назад сколько ребенок жизнь тоже можно чтобы лежать лицо делать вперед помогать думать узнавать дальше конец смотреть'
+        },
+        'Топ 100-200':{
+            'title': "Топ 100-200",
+            'language': 'RU',
+            'text': 'голова считать вместе минута жена самый никакой сторона сделать нужный смотреть вообще просто нога понятно средство жизнь видеть один идти любой старый рука вообще работать конец держать народ лицо там пойти сердце много свой два мужчина глаз время правда случай приходить большой отвечать некоторый остаться получить хотя например самый далеко смотреть лицо рука группа рука ничего момент движение ситуация взгляд уходить палец еще раз право только почти машина собственный комната счастье слишком помнить работать сюда уметь писать настоящий держать уходить говорить холодный никогда переставать лицо дерево уходить болеть писать жена вызывать смерть снова слышать выходить открывать находить песня программа верить появляться уверенный собственный музыка хотеть очередь находить бабушка позволять начальник попробовать ребенок голова далее рука вернуть счастье вообще ближайший опять квартира идея школа готовить своя слышать друг пример писать туда сегодня скоро конечно пол смотреть народ начаться помогать лево работать дерево часто жена фильм рубль карта верный роль ощущать победа около снова фильм рубль примерно назад выходить особенно организация путь приезжать список дальше группа еще путь делаться находить любой назад звучать'
+        },
+        'Топ 200-300':{
+            'title': "Топ 200-300",
+            'language': 'RU',
+            'text': 'центр момент вокруг ясно книга час вместе личный средство число пять комната возможность мало точка парень результат несколько всякий цель ход понятие связь значение целый правило детство быстро бумага детский следующий примерно тысяча картина способ заниматься улыбаться человеческий мама мешать форма событие действие прошлый худой слышать процесс пытаться армия спасать тяжело период трудно представлять век идея опыт старик недавно международный иной встречать фильм многообразие привычка опыт работать заниматься вывод участие член звено производство здоровье сторона развивать глубокий полиция операция частный древний товарищ объяснять ключ уважать вера изучать задача метод материал входить документ секретарь казаться принять столица характер ученик сильный практика странный больной вероятность одинокий институт закон жена качество прямо кухня суть энергия возможность ровный численность личный власть генеральный кончаться начало перспектива родной черта настоящее случай требование масса смысл фамилия качество обязательный относительно темп язык праздник основной специальный опасный запись исчезать тепло подготовка температура становиться студенческий разница объяснение крестьянин усилие минус высота чемодан полтора объем появление тройка участие детский пустой помощь фамилия ощущение скорость употреблять объект членский правительство заместитель конференция слишком речь соглашаться духовный министр частный орудие управление общество медленно впервые завтра список текущий союз членский утверждение разный анализ план строка депутат суд общественный спор безусловно структурный супруг менеджер сильный боевой строй религиозный поселок исследование потребность командир разновидность естественный совершенный редкий указание территория количество повторять представитель чрезвычайный ценность фантазия философский наблюдение древний встречаться взгляд лгать рассказать базовый должный удовольствие хватать инженерский авторитет доктор гость большой подготовить воздействие акт детский тренировка набор цвет долг жить экономический легкий атмосфера заболевание ножка фантастика кресло красота предмет отправлять встречать пластинка граница шесть напротив собирать гнездо штаб пуля модель груз высокий риторика дисциплина сцена'
+        },
+        'Топ 300-400':{
+            'title': "Топ 300-400",
+            'language': 'RU',
+            'text': 'разговор движение несколько средство фонд задуматься знак прибор шаг готовый учебный круг южный рядом переход кость беседа необходимо привыкать занятие холм солдат ежегодный трубка давление эпоха камень талант начинать отправиться изделие церковь виноват путь полиция ученый жестокий фонд партизан скрывать мозг кризис невеста характерный объединение задача рассматривать иной голова клетка бросить портрет продукт вывод кусок спальня исключение доказательство создатель грудь бывший партнер коридор десяток отлично сопротивление академия огонь поток изучение жалость мероприятие табличка король прочесть супруг нервный боец быстрое таблица растерянный депутат вызов вмешательство власть масштаб консультант потолок инженерский перевод избавить здание ограничение худеть остальной основный эффект привычка газета страсть влияние юрист деление элемент колыбель перечень телега репутация конструкция новость задание принцип сбор вещь начальник преподаватель озеро дышать спина страховый засыпать стратегия трудиться фантазия анализ гражданский рубеж стремиться налоговик судья столетие привычка биология мгновенно принятие шепот деталь проверка обязанность статус детектив лицо сильный цельный доска честь планета обязательный кольцо край ученый отчет наука исполнитель секунда напротив протяжение ремесло встреча наставник президент крик совершить вид вражеский глубь оружие грань специалист кровать доля двести концепция редактор образец исчезать окружение конструктор норма обнаружить поддержка правило постепенно версия необходимость файл содержание дед командовать овладеть историк авторитет орудие обеспечение площадь вкус внутренний меню создатель знание превращаться общаться математика рычаг ударный комплекс болезнь консультация вероятность инженер рубеж расположить обязанность набор представление табурет устав выбор объединение заключение численность сосед информация общее питание база ценность присутствие уточнить благополучие классный привычный править продажа относиться камень армия транспорт методика мышление выступление приветствовать защищать компонент одежда крик склад становление период учебник стирать путь пятнадцать точный врач высота подряд инженерский курс луна деталь счастье последний десятилетие'
+        },
+        'Топ 400-500': {
+            'title': "Топ 400-500",
+            'language': 'RU',
+            'text': 'ученик действие достоинство результат сотрудник бояться любопытный наука столб нравиться пятно культура вред статья берег тихо объявить космос исследование нагрузка преподаватель столица движение берег волнение забота институт пыль норма оглянуться стремиться плотный родина отсутствовать перемена способ стремление взрослый верить необходимость вероятность значительный рабочий фигура класс колебание враг верхность подпись появиться дружба противник строитель последствие критик тьма распределение образ способ вдоль светлый мечта фантастический смыслник смерть свидетель резкий опуститься наука элемент способствовать противоположный радиус сотрудник достижение радиус ученый критик обнаружить патриот пустота окрестность впустить вероятность оказаться пастель трудность возлюбить перемена способное ограждение величие'
+        },
+        'Топ 500-600': {
+            'title': "Топ 500-600",
+            'language': 'RU',
+            'text': 'приятно слабый образ мысль ставить уязвимость ограничение выпускник трясти угрожать удивить признание выражать литература способность настроение фантастический прозвучать доброе характер уверенность превосходство рубеж столетие замечать единство часть чувство равный схема удача осведомленность стойкость передача изображение признавать ловкий понятие техника потребность живой достижение секрет спокойный возможность творить взаимодействие метод частный справка диапазон дополнение возможность живой доступный основа информация оглянуться наставник последователь беседа мораль превосходный область знак порыв обязать крепко поддержка степень скромность заведение замечать понимание основа значение достигать мягкий значение тесно'
+        },
+        'Топ 600-700': {
+            'title': "Топ 600-700",
+            'language': 'RU',
+            'text': 'знание творческий равный извинение угол знаменитый добираться психология годиться осведомить удивительный трава гордость совершить герой развить влияние гибкость юность трогать объяснить способ талант стойкость самочувствие опыт способность уверенность грусть происхождение занавеска честь отсутствие классное характер верить благородство степень прозвучать интенсивность колебание интенсивность стиль задать честь ценный превращение подчеркивание общественность нормальный влияние признание высоко учение звучать отсутствие человечность испытать вынуждать наслаждаться обладать терпение выражать включать принимать взаимоотношение годность останавливать пытаться задача степень отличаться беречь стойкий основа'
+        },
+        'Топ 700-800': {
+            'title': "Топ 700-800",
+            'language': 'RU',
+            'text': 'выразить задача ощущение профессиональный улучшение милосердие широкий противоположность нежность следование нежный доброта честь точность судьба природный уменьшать заметка важный культура инстинкт воспитание выдерживать последовательность преобразование раздача разумный частный редкий выразить вести приличие профессионал готовность ощущение характеристика сострадание оставаться утешение радость выработка значить представлять проникновение определить требование уклоняться придавать воображение своеобразный касаться трепетать сосредоточить ответственность художество упрекать указывать узкий стремление методическое подчеркивать отдельный воспитанный довольство испытывать представлять потребность исправление наличие тщательный окружить непременно направление'
+        },
+        'Топ 800-900': {
+            'title': "Топ 800-900",
+            'language': 'RU',
+            'text': 'обстановка радоваться готовить улучшение характерный превосходный общественный положение различие происходить повторяться резкость действовать размышление стеснительный разработка счастливый грамотность плотность вспоминать возможность осторожный охватывать краска рисовать образовать мышление целесообразность достижение скромный последствие мышление утвердить отношение напряжение восприятие способность испытать типичный выживание подобие различие учитывать замечание подавать приспособиться переполнять гибкий довольный составленный тщательность заострить общительность воспоминание проявление частота сообщение воспроизводить прославлять строгий проектировать уважение редкость облегчить замечательный натура стильность уточнение эмоциональность труд'
+        },
+        'Топ 900-1000': {
+            'title': "Топ 900-1000",
+            'language': 'RU',
+            'text': 'содействие значительный соответствие воспринимать доверие задушевность предаваться серьезность нервный специальность реализация требование существенный знаменитость увеличивать прекрасный зрелище обходиться передавать обязательный дальность желание необходимость разнообразие требовать воодушевление нежный степень сожаление трогать вздох завершение благодать восприимчивость напрягать избавление сущность продление служебный ненавидеть организация предпочтение страхование удобство здравый одаренность продвигаться пустота нормировать душевный доступность наблюдение предвидеть уровень естественность знак уважение сосредоточить зрелище звучание развлекательный коварство лень вспоминать размышлять знать удовлетворенность скромность добродетель'
+        }
+    },
+    "Распространенный слова (EN)":{
+        'Top 0-100': {
+            'title': "Top 100",
+            'language': 'EN',
+            'text': 'the be and of a in to have it that for you he with on do say this they at but we his from not by she or as what go their can who get if would her all my make about know will as one time there year so think when which them some me people take out into just see him your come could now than like other how then its our two more these want way look first also new because day more use no man find here thing give many well only those tell one very her even back any good woman through us life child there work down may after should call world over school still try in as last ask need feel become leave put mean keep let begin seem help talk turn start show hear play run move like live believe hold bring happen write provide sit stand lose pay meet include continue set learn change lead understand watch follow stop create speak read allow add spend grow open walk win offer remember love consider appear buy wait serve die send expect build stay fall cut reach kill remain suggest raise pass sell require report decide pull return explain hope develop carry break thank achieve manage gain deal drive support occur'
+        },
+        'Top 100-200': {
+            'title': "Top 100-200",
+            'language': 'EN',
+            'text': 'because after city place still made found through need country area want every study give change part long off school state feel might leave while great little life story next house course meet near last answer service order important week record among toward social spend team process face street half public job within end result send expect home important power class person read line turn development test act industry lead remain town allow win art clear mind produce service continue'
+        },
+        'Top 200-300': {
+            'title': "Top 200-300",
+            'language': 'EN',
+            'text': 'record begin ground offer though provide bring figure follow account perhaps level sure strong simple product free hard past experience build report describe law matter court matter write age care reason opportunity decide plan role history cost father mother voice trade appear law society friend heart send risk subject trade energy source data local demand sense task product fast town spend carry player value degree court hour husband law hour step base design recent reach hope enjoy son daughter avoid plan century improve garden end person around serve training'
+        },
+        'Top 300-400': {
+            'title': "Top 300-400",
+            'language': 'EN',
+            'text': 'focus future simple demand hour piece support morning unit remain recent animal heart stop current hundred leader base image wall organization save rock contain design entire lead writer step image benefit individual song return allow tree protect series modern structure address past success support necessary behind maintain issue analysis happy prevent compare heart personal determine available establish agency analysis key consider usually national friend green quickly rock summer career factor establish leader professional purpose away quality wide approach method create exist court interest above individual quickly song end care'
+        },
+        'Top 400-500': {
+            'title': "Top 400-500",
+            'language': 'EN',
+            'text': 'consider protect century significant carry pick throw opinion state manage difficult majority quick standard fast element indicate personal property evidence worth suggest learn approach friend television pressure performance mention science arrive collection industry quickly arrive throughout space attention story imagine progress nearly knowledge behavior increase address machine entire individual professional interview effect entire choice personal voice describe simple either quality direction recent field mention arrive protect entire behind cross expression current start opportunity special discuss individual camera operation scene letter property support agree item training risk local attach answer cost'
+        },
+        'Top 500-600': {
+            'title': "Top 500-600",
+            'language': 'EN',
+            'text': 'mention benefit technology connect rise stick communication attend increase paper skill season daily tree perform project catch scene arrive daily final continue movement consider approach below unit shoot contain clearly apply pull imagine evidence meet involve project force operation religious start series break involve loss study clearly express progress either skill land recognize foreign research officer difficult focus above normal happy measure wear regard heavy department beyond city voice expert ride reveal indicate property research artist brother consider fall discover wait create easily dinner conflict manager practice arrive explain edge'
+        },
+        'Top 600-700': {
+            'title': "Top 600-700",
+            'language': 'EN',
+            'text': 'arrival sense medium miss perform energy organize research entire experience public creative category purchase department reality similar future official meet reveal provide clearly manage exist season benefit quickly dream stick easy entire recent conflict myself regular narrow labor cost machine stop test control entire image spring release drink claim whole study heavy accept attach design energy population literature opinion evidence enter argue discover meet determine discover impact holiday fly certain similar loss color relation agency voice living admit observe quick basic economy brother act destroy foreign'
+        },
+        'Top 700-800': {
+            'title': "Top 700-800",
+            'language': 'EN',
+            'text': 'existence lift connect grant district lawyer wage comfort arrange size letter relative painting feed division chemical charge split shake display serve escape planet wild emotional attract travel neither arrival labor neighborhood approve agree natural flight community separate similar apply hang sight release natural crazy introduce adventure neither describe intense experience living influence practice blue recent weekly firm agency close extra concert remember attach current bright refuse frequently prize recommend regular relative opinion annual magazine channel speech discovery program shake neighbor approach independent carefully enough split summer background leather approval provide material'
+        },
+        'Top 800-900': {
+            'title': "Top 800-900",
+            'language': 'EN',
+            'text': 'entire weak entire quickly factory shade drop advice wonder powerful noise observe drop disappear cabinet wonderful position chair correctly effect smooth brick subject captain kitchen conversation plane competition stretch collection wonderful league softly original quickly probably somewhere recommend angry common arrange likely direction ordinary combine unit frequently lunch gentleman pattern wonderful laboratory ordinary possess conversation chemical title throughout realize performance probably surface tough conversation investigate permit recommend intention direction steel against enjoy determine rarely procedure establish retire divide handle investigate according slowly angry consideration nobody structure close background closely finally immediately chief finally'
+        },
+        'Top 900-1000': {
+            'title': "Top 900-1000",
+            'language': 'EN',
+            'text': 'brother assistance assume concept construct conscious perfect truly degree establish huge identity informal distribution destruction independent telephone combination assistance constantly comparison counter large freedom especially important charge brother expression gather influence indication neighborhood mention domestic benefit sequence investigation leather positive imagine presence positive sentence neither famous forever mutual appreciate separate shadow audience somehow valuable recover famous combination description secretary withdraw yellow luxury interesting observe sensitive potential accident appearance balance uncle chain mistake musical wooden destruction beautiful difference nobody approval frequent system restore foreign landscape closely division structure industry frequently struggle discover channel television department officer wonderful imagine influence gesture executive'
+        }
+    },
     "БАЗОВЫЕ УРОКИ":{
         "ва ол":{
             'title': "ва ол",

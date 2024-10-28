@@ -5,7 +5,7 @@ from module.timer import Timer
 from module.keyboard import Keyboard
 from module.progressbar import HorizontalProgressbar
 from module.input import Input
-from sounds._sound import Sound, SoundPygame
+from sounds._sound import SoundPygame
 
 # Главный фрейм для тренажера
 class Trainer(ttk.Frame):
@@ -22,13 +22,8 @@ class Trainer(ttk.Frame):
         self.text_done = ttk.StringVar(value='')                    # Текст который уже напечатали
         self.print_speed = ttk.StringVar(value='Рекорт: ')          # Скорость печати текста
 
-        #self.sound_success = Sound(path_sound="sounds/click-button_m.wav")
-        #self.sound_error = Sound(path_sound="sounds/click-button-error.wav")
-        #Sound.status = True # Отключаим плеер, что бы музыка не играла вообще
-
-        self.sound_success = SoundPygame(path_sound="sounds/click-button.wav")
-        self.sound_error = SoundPygame(path_sound="sounds/click-button-error.wav")
-        #Sound.status = True # Отключаим плеер, что бы музыка не играла вообще
+        self.sound_success = SoundPygame(path_sound="sounds/click-button.wav")      # Музыка для успешного нажатия
+        self.sound_error = SoundPygame(path_sound="sounds/click-button-error.wav")  # Музыка для неуспешного нажатия
 
         # -------------------------------------------------------------------------------------------------
         self.box = ttk.Frame(self)
@@ -45,7 +40,7 @@ class Trainer(ttk.Frame):
         # -------------------------------------------------------------------------------------------------
 
         self.input = Input(self, self.text_for_printing, self.text_done)            # Текст для печати и напечатанный текст
-        self.progres_bar = HorizontalProgressbar(self,len(self.text))               # Шкала выполнения, насколько текст уже напечатан
+        self.progres_bar = HorizontalProgressbar(self, self.len_chars)              # Шкала выполнения, насколько текст уже напечатан
         self.kayboard = Keyboard(self, self.get_first_char(), self.language)        # Клавиатура, передаем первый символл для подсветки его перед началом печати
 
         self.focus_set()  # Устанавливаем фокус на фрейм
@@ -53,7 +48,6 @@ class Trainer(ttk.Frame):
         self.bind("<KeyRelease>", self.on_key_release)
 
         
-
     def get_first_char(self):
         """ Певый символ строки или false если символов не осталось """
         if self.text_for_printing.get():
@@ -72,7 +66,7 @@ class Trainer(ttk.Frame):
         """ Обновить текст который уже напечатан, переменная хранит максимум 12 символов
         Для корректного отображения в поле ввода, размер фрейма и шрифта влияет на колич
         ество символов которые можно отобразить """
-        if len(self.text_done.get()) >= 12:
+        if len(self.text_done.get()) >= 20:
             self.text_done.set(self.text_done.get()[1:] + self.get_first_char())
         else:
             self.text_done.set(self.text_done.get() + self.text_for_printing.get()[0])
@@ -90,23 +84,25 @@ class Trainer(ttk.Frame):
         
         # Напечатали ожыдаемый символ
         if e.char == self.get_first_char():
-            self.sound_success.start_play(e.keysym) # Музыка упешного нажатия кнопки
-            self.timer.start_timer() # Запустить таймер, если он еще не запуще
-            self.progres_bar.update_progress() #Обновить прогрес бар +1
+            self.sound_success.start_play(e.keysym)                 # Музыка упешного нажатия кнопки
+            self.timer.start_timer()                                # Запустить таймер, если он еще не запуще
+            self.progres_bar.update_progress()                      # Обновить прогрес бар +1
 
             # Завершение ввода, когда ввели последний символ
             if self.is_last_char():
-                self.timer.stop_timer() # Остановить таймер в конце
-                self.kayboard.end() # Отключить клавиатуру в конце
-                self.input.end() # Покрасить граниуц в зеленый
-                self.print_speed.set(f"Скорсоть: {int((self.len_chars/self.timer.time)*60)}")
+                self.timer.stop_timer()                             # Остановить таймер в конце
+                self.kayboard.end()                                 # Отключить клавиатуру в конце
+                self.input.end()                                    # Покрасить граниуц в зеленый
+                speed = int((self.len_chars/self.timer.time)*60)    # Расчитать скорость печати, 140 знаков в минуту
+                self.print_speed.set(f"Скорсоть: {speed}")          # Отрисовать скорость печати на окне
 
-            self.updata_text_done() # Обновить текст который уже напечатан
-            self.update_text_for_printing() # Удалить первый введенным символ, обновляем строку ввода
-            self.kayboard.update_active_kay(self.get_first_char()) # Обновить кнопку для подсветки, первый символ подсветить
+            self.updata_text_done()                                 # Обновить текст который уже напечатан
+            self.update_text_for_printing()                         # Удалить первый введенным символ, обновляем строку ввода
+            self.kayboard.update_active_kay(self.get_first_char())  # Обновить кнопку для подсветки, если она есть
         else:
-            self.sound_error.start_play(e.keysym) # Музыка не успешного нажатия кнопки
+            self.sound_error.start_play(e.keysym)                   # Музыка не успешного нажатия кнопки
 
     def on_key_release(self, e):
-        """Обработка события когда кнопку отпустили"""
-        SoundPygame.clear_event_list(e.keysym) # Очистить список мобытий музыки, если кнопка отпущена ее можно запустить повторно
+        """Обработка события когда кнопку отпустили и нужно очистить
+        список событий что бы запустить можно было повторно звук"""
+        SoundPygame.clear_event_list(e.keysym)                      
