@@ -3,6 +3,7 @@ from tkinter import ttk
 import ttkbootstrap as ttk
 from module.trainer import Trainer
 from config.lessonss import all_lesonts
+from module.analitic import AnaliticFrame
 
 class App(ttk.Window):
     def __init__(self):
@@ -12,6 +13,8 @@ class App(ttk.Window):
 
         self.all_lesonts = all_lesonts
         self.current_trainer = None  # Хранение текущего фрейма Trainer
+
+        AnaliticFrame(self)
         
         self.create_menu()
 

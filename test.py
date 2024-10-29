@@ -1,38 +1,23 @@
-import pygame
+import tkinter as tk
+from PIL import Image, ImageTk
 
-class Sound:
-    active_events = set()  # Используем множество для уникальных событий
+# Создаем главное окно
+root = tk.Tk()
+root.geometry("300x300")
 
-    def __init__(self, path_sound):
-        self.path_sound = path_sound
-        pygame.mixer.init()  # Инициализация модуля смешивания
-        self.sound = pygame.mixer.Sound(path_sound)  # Загружаем звук
+# Создаем Frame
+frame = tk.Frame(root)
+frame.pack(pady=20)
 
-    def start_play(self, keysym):
-        """Добавляем клавишу в список если ее нету и запускаем звук"""
-        if keysym not in Sound.active_events:
-            Sound.active_events.add(keysym)
-            # Запускаем звук на новом канале, чтобы не прерывать предыдущий
-            self.sound.play()  # Звук может накладываться
+# Загружаем изображение и изменяем его размер до 100x100 пикселей
+image_path = "img/speedrecord.png"  # Укажите путь к изображению
+image = Image.open(image_path)
+image = image.resize((100, 100), Image.LANCZOS)  # Используем LANCZOS вместо ANTIALIAS
+photo = ImageTk.PhotoImage(image)
 
-    def stop_play(self, keysym):
-        """Удаляем клавишу из списка при отпускании"""
-        if keysym in Sound.active_events:
-            Sound.active_events.remove(keysym)
+# Создаем Label для отображения изображения
+label = tk.Label(frame, image=photo)
+label.image = photo  # Сохраняем ссылку на изображение, чтобы оно не удалилось сборщиком мусора
+label.pack()
 
-# Пример использования:
-# Создаем экземпляр класса Sound для правильного звука
-sound_correct = Sound("path_to_correct_sound.wav")
-sound_incorrect = Sound("path_to_incorrect_sound.wav")
-
-def on_key_press(e):
-    """Обработка нажатия клавиши"""
-    if e.keysym == "CorrectKey":  # Замените "CorrectKey" на нужную клавишу
-        sound_correct.start_play(e.keysym)
-    elif e.keysym == "IncorrectKey":  # Замените "IncorrectKey" на нужную клавишу
-        sound_incorrect.start_play(e.keysym)
-
-def on_key_release(e):
-    """Обработка отпускания клавиши"""
-    sound_correct.stop_play(e.keysym)
-    sound_incorrect.stop_play(e.keysym)
+root.mainloop()

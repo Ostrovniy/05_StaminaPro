@@ -6,6 +6,7 @@ from module.keyboard import Keyboard
 from module.progressbar import HorizontalProgressbar
 from module.input import Input
 from sounds._sound import SoundPygame
+from analytics.analytic import Analytic
 
 # Главный фрейм для тренажера
 class Trainer(ttk.Frame):
@@ -24,6 +25,8 @@ class Trainer(ttk.Frame):
 
         self.sound_success = SoundPygame(path_sound="sounds/click-button.wav")      # Музыка для успешного нажатия
         self.sound_error = SoundPygame(path_sound="sounds/click-button-error.wav")  # Музыка для неуспешного нажатия
+
+        self.analytic = Analytic(self.language)
 
         # -------------------------------------------------------------------------------------------------
         self.box = ttk.Frame(self)
@@ -66,7 +69,7 @@ class Trainer(ttk.Frame):
         """ Обновить текст который уже напечатан, переменная хранит максимум 12 символов
         Для корректного отображения в поле ввода, размер фрейма и шрифта влияет на колич
         ество символов которые можно отобразить """
-        if len(self.text_done.get()) >= 20:
+        if len(self.text_done.get()) >= 18:
             self.text_done.set(self.text_done.get()[1:] + self.get_first_char())
         else:
             self.text_done.set(self.text_done.get() + self.text_for_printing.get()[0])
@@ -84,6 +87,7 @@ class Trainer(ttk.Frame):
         
         # Напечатали ожыдаемый символ
         if e.char == self.get_first_char():
+            self.analytic.gl_increment_quantity_true()              # Увеличить кол верных символов на 1
             self.sound_success.start_play(e.keysym)                 # Музыка упешного нажатия кнопки
             self.timer.start_timer()                                # Запустить таймер, если он еще не запуще
             self.progres_bar.update_progress()                      # Обновить прогрес бар +1
@@ -93,13 +97,18 @@ class Trainer(ttk.Frame):
                 self.timer.stop_timer()                             # Остановить таймер в конце
                 self.kayboard.end()                                 # Отключить клавиатуру в конце
                 self.input.end()                                    # Покрасить граниуц в зеленый
-                speed = int((self.len_chars/self.timer.time)*60)    # Расчитать скорость печати, 140 знаков в минуту
+                timePr = self.timer.time                            # Время печати в секундах
+                speed = int((self.len_chars/timePr)*60)             # Расчитать скорость печати, 140 знаков в минуту
+                self.analytic.gl_set_max_speed_record(speed)        # Обновить рекорд если он побит
+                self.analytic.gl_increment_minutes_spent(timePr)    # Добавить потреченое время на печать
                 self.print_speed.set(f"Скорсоть: {speed}")          # Отрисовать скорость печати на окне
+                self.analytic.save_data()                           # Сохранить данные в БД json по аналитике
 
             self.updata_text_done()                                 # Обновить текст который уже напечатан
             self.update_text_for_printing()                         # Удалить первый введенным символ, обновляем строку ввода
             self.kayboard.update_active_kay(self.get_first_char())  # Обновить кнопку для подсветки, если она есть
         else:
+            self.analytic.gl_increment_quantity_false()             # Увеличить кол ошибок на 1
             self.sound_error.start_play(e.keysym)                   # Музыка не успешного нажатия кнопки
 
     def on_key_release(self, e):
