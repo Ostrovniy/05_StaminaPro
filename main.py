@@ -14,14 +14,20 @@ class App(ttk.Window):
         self.all_lesonts = all_lesonts
         self.current_trainer = None  # Хранение текущего фрейма Trainer
 
-        AnaliticFrame(self)
+        # Фрейм для загрузки виджетов
+        self.widget_frame = tk.Frame()
+        self.widget_frame.pack(expand=True, fill=tk.BOTH)
+
+        #AnaliticFrame(self)
         
         self.create_menu()
+        self.home()
 
     def create_menu(self):
         """Написал част GPT"""
         menu_bar = ttk.Menu(self)
         lessons_menu = ttk.Menu(menu_bar, tearoff=0)
+        menu_bar.add_cascade(label='Home', command=self.home)
         
         # Рекурсивное добавление категорий и уроков
         self.add_menu_item(lessons_menu, self.all_lesonts)
@@ -41,14 +47,20 @@ class App(ttk.Window):
                 parent_menu.add_command(label=value['title'], command=lambda v=value: self.show_trainer(v))
     
     def show_trainer(self, lesson_data):
-        """Написал част GPT"""
-        # Удаление текущего фрейма Trainer, если он есть
-        if self.current_trainer is not None:
-            self.current_trainer.destroy()
-        
-        # Создание нового фрейма Trainer с передачей данных урока
-        self.current_trainer = Trainer(self, lesson_data)
+        """Загрузка фрейма для тренировки"""
+        self.clear_frame()
+        self.current_trainer = Trainer( self.widget_frame, lesson_data)
         self.current_trainer.pack(expand=True)
+    
+    def home(self):
+        """Загрузка фрейма аналитики, являеться домашней страницей"""
+        self.clear_frame()
+        self.homeframe = AnaliticFrame( self.widget_frame)
+
+    def clear_frame(self):
+        """Удаляет все виджеты из фрейма для загрузки."""
+        for widget in self.widget_frame.winfo_children():
+            widget.destroy()
         
 
 

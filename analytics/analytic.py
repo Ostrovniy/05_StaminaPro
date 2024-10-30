@@ -41,6 +41,27 @@ class Analytic:
             return self.data["global_ru"]["print_speed_record"]
         if self.leng == 'EN':
             return self.data["global_en"]["print_speed_record"]
+        
+    def gl_get_quantity_true(self):
+        """Получить количество напечатаных символов"""
+        if self.leng == 'RU':
+            return self.data["global_ru"]["quantity_true"]
+        if self.leng == 'EN':
+            return self.data["global_en"]["quantity_true"]
+        
+    def gl_get_quantity_false(self):
+        """Получить количество напечатаных символов c ошибками"""
+        if self.leng == 'RU':
+            return self.data["global_ru"]["quantity_false"]
+        if self.leng == 'EN':
+            return self.data["global_en"]["quantity_false"]
+        
+    def gl_get_minutes_spent(self):
+        """Получить количество потречаного времени в минутах"""
+        if self.leng == 'RU':
+            return self.data["global_ru"]["minutes_spent"]
+        if self.leng == 'EN':
+            return self.data["global_en"]["minutes_spent"]
     
     def get_global(self):
         """Получить глобальную аналитику относительно языка"""

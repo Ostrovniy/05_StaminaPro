@@ -1,23 +1,25 @@
 import tkinter as tk
-from PIL import Image, ImageTk
+from PIL import Image, ImageDraw, ImageFont, ImageTk
 
-# Создаем главное окно
 root = tk.Tk()
-root.geometry("300x300")
 
-# Создаем Frame
-frame = tk.Frame(root)
-frame.pack(pady=20)
+# Создаем изображение и указываем фон как прозрачный
+img = Image.new('RGBA', (200, 60), (255, 255, 255, 0))  
+draw = ImageDraw.Draw(img)
 
-# Загружаем изображение и изменяем его размер до 100x100 пикселей
-image_path = "img/speedrecord.png"  # Укажите путь к изображению
-image = Image.open(image_path)
-image = image.resize((100, 100), Image.LANCZOS)  # Используем LANCZOS вместо ANTIALIAS
-photo = ImageTk.PhotoImage(image)
+# Загружаем шрифты разных размеров
+large_font = ImageFont.truetype("arial.ttf", 38)  # Основной размер
+small_font = ImageFont.truetype("arial.ttf", 18)  # Размер для текста "з/м"
 
-# Создаем Label для отображения изображения
-label = tk.Label(frame, image=photo)
-label.image = photo  # Сохраняем ссылку на изображение, чтобы оно не удалилось сборщиком мусора
+# Рисуем текст на изображении
+draw.text((10, 10), "250", font=large_font, fill="black")  # Число с большим шрифтом
+draw.text((110, 30), "з/м", font=small_font, fill="black")  # Текст с маленьким шрифтом
+
+# Преобразуем изображение для Tkinter
+img_tk = ImageTk.PhotoImage(img)
+
+# Создаем и размещаем Label с изображением
+label = tk.Label(root, image=img_tk, bg="white")
 label.pack()
 
 root.mainloop()
