@@ -48,12 +48,19 @@ class AnaliticFrame(ttk.Frame):
         super().__init__(master, bootstyle="default", *args, **kwargs)
 
         self.analitic_data = self.analytic = Analytic('RU')
+        self.analitic_data_en = self.analytic = Analytic('EN')
 
         self.record = self.analitic_data.gl_get_print_speed_record()
         self.quantity_true = self.analitic_data.gl_get_quantity_true()
         self.quantity_false = self.analitic_data.gl_get_quantity_false()
         self.minutes_spent = self.analitic_data.gl_get_minutes_spent()
 
+        self.record_en = self.analitic_data_en.gl_get_print_speed_record()
+        self.quantity_true_en = self.analitic_data_en.gl_get_quantity_true()
+        self.quantity_false_en = self.analitic_data_en.gl_get_quantity_false()
+        self.minutes_spent_en = self.analitic_data_en.gl_get_minutes_spent()
+
+        # -----------------------------------------------------------------------------------------------------------------------------------------------------
         self.title_ru = ttk.Label(self, text='Показатели для ru', font='Arial 36 bold')
         self.title_ru.pack(fill=tk.X)
 
@@ -63,53 +70,41 @@ class AnaliticFrame(ttk.Frame):
         self.box_record_ru = Block_indicator(self.line_ru, image_path='img/speedrecord.png', title='Скорость печати', value=self.record, prefix='з/м')
         self.box_record_ru.pack(side=tk.LEFT, padx=5, pady=5)
 
-        self.box_quantity_true_ru = Block_indicator(self.line_ru, image_path='img/speedrecord.png', title='Символов напеча...', value=self.quantity_true, prefix='')
+        self.box_quantity_true_ru = Block_indicator(self.line_ru, image_path='img/char_true.png', title='Символов напеча...', value=self.quantity_true, prefix='')
         self.box_quantity_true_ru.pack(side=tk.LEFT, padx=5, pady=5)
 
-        self.box_quantity_false_ru = Block_indicator(self.line_ru, image_path='img/speedrecord.png', title='Ошибок...', value=self.quantity_false, prefix='')
+        self.box_quantity_false_ru = Block_indicator(self.line_ru, image_path='img/char_false.png', title='Ошибок...', value=self.quantity_false, prefix='')
         self.box_quantity_false_ru.pack(side=tk.LEFT, padx=5, pady=5)
 
-        self.box_minutes_spent_ru = Block_indicator(self.line_ru, image_path='img/speedrecord.png', title='Всего минут', value=self.minutes_spent, prefix='')
+        self.box_minutes_spent_ru = Block_indicator(self.line_ru, image_path='img/time.png', title='Всего минут', value=self.minutes_spent, prefix='')
         self.box_minutes_spent_ru.pack(side=tk.LEFT, padx=5, pady=5)
+
+        # -----------------------------------------------------------------------------------------------------------------------------------------------------
+        self.title_en = ttk.Label(self, text='Показатели для En', font='Arial 36 bold')
+        self.title_en.pack(fill=tk.X, pady=(30, 0))
+
+        self.line_en = ttk.Frame(self)
+        self.line_en.pack(fill=tk.X)
+
+        self.box_record_en = Block_indicator(self.line_en, image_path='img/speedrecord.png', title='Скорость печати', value=self.record_en, prefix='з/м')
+        self.box_record_en.pack(side=tk.LEFT, padx=5, pady=5)
+
+        self.box_quantity_true_en = Block_indicator(self.line_en, image_path='img/char_true.png', title='Символов напеча...', value=self.quantity_true_en, prefix='')
+        self.box_quantity_true_en.pack(side=tk.LEFT, padx=5, pady=5)
+
+        self.box_quantity_false_en = Block_indicator(self.line_en, image_path='img/char_false.png', title='Ошибок...', value=self.quantity_false_en, prefix='')
+        self.box_quantity_false_en.pack(side=tk.LEFT, padx=5, pady=5)
+
+        self.box_minutes_spent_en = Block_indicator(self.line_en, image_path='img/time.png', title='Всего минут', value=self.minutes_spent_en, prefix='')
+        self.box_minutes_spent_en.pack(side=tk.LEFT, padx=5, pady=5)
+        # -----------------------------------------------------------------------------------------------------------------------------------------------------
 
         self.pack(expand=True, fill=tk.BOTH, padx=50)
 
-        #self.analitic_data = self.analytic = Analytic('RU')
-        #self.record = self.analitic_data.gl_get_print_speed_record()
 
-        #ttk.Label(self, text='Отображения аналитических показателей').pack()
-        #ttk.Label(self, text=f'Рекорт: {self.record}').pack()
-        #self.pack()
 
-        #sales_data = {
-            #"Product A": 100,
-            #"Product B": 200,
-            #"Product C": 600,
-            #"Product D": 400,
-            #"Product E": 500
-        #}
 
-        #plt.rcParams["axes.prop_cycle"] = plt.cycler(
-            #color=["#4C2A85", "#BE96FF", "#957DAD", "#5E366E", "#A98CCC"])
-        
-        #fig1, ax1 = plt.subplots()
-        #ax1.bar(sales_data.keys(), sales_data.values())
-        #ax1.set_title("Sales by Product")
-        #ax1.set_xlabel("Product")
-        #ax1.set_ylabel("Sales")
 
-        #canvas1 = FigureCanvasTkAgg(fig1, self)
-        #canvas1.draw()
-        #canvas1.get_tk_widget().pack(side="left", fill="both", expand=True)
-        #canvas1.get_tk_widget().pack()
 
-        # Создаем обработчик закрытия окна
-        #master.protocol("WM_DELETE_WINDOW", self.on_close)
-
-    def on_close(self):
-        pass
-        # Завершаем процессы matplotlib и закрываем окно
-        #plt.close('all')  # Закрываем все фигуры matplotlib
-        #self.master.destroy()  # Закрываем окно Tkinter
 
 
