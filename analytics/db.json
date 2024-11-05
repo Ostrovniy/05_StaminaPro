@@ -1,9 +1,9 @@
 {
     "global_ru": {
-        "print_speed_record": 240,
-        "quantity_true": 3142,
-        "quantity_false": 252,
-        "minutes_spent": 773
+        "print_speed_record": 360,
+        "quantity_true": 4124,
+        "quantity_false": 350,
+        "minutes_spent": 978
     },
     "global_en": {
         "print_speed_record": 151,

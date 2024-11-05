@@ -9,6 +9,8 @@ class Input(ttk.Frame):
         self.padding = 5 # Размер рамки, та что цветная
         self.height = 100 # (1) Высота фрейма в пикселяд
         self.forn_size = 50 # Размер шрифта
+        self.text = text
+        self.textdone = textdone
         
         super().__init__(master, bootstyle="primary", height=self.height, *args, **kwargs) 
 
@@ -28,6 +30,16 @@ class Input(ttk.Frame):
         # (2) Поле ввода растянуть на всю доступную ширину
         self.pack(fill=tk.X, pady=(self.padding_top_frame, 0))
 
-    def end(self):
+    def end(self, speed):
         """Смена цвета обводки на зеленый, успешное завершение ввода"""
         self.configure(bootstyle="success")
+        self.textdone.set('Скорость:')
+        self.text.set(f'{speed} з/м')
+
+    def set_pausa_style(self):
+        """Смена цвета обводки на жолтый, когда установлена пауза"""
+        self.configure(bootstyle="warning")
+
+    def set_default_style(self):
+        """Смена цвета обводки на обычный, когда пауза отключена"""
+        self.configure(bootstyle="primary")

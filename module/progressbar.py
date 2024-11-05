@@ -20,3 +20,11 @@ class HorizontalProgressbar(ttk.Progressbar):
         """Увеличить шкалу на 1"""
         self.progress_var.set(self.progress_var.get()+1)
 
+    def set_pausa_style(self):
+        """Смена цвета на жолтый, когда установлена пауза"""
+        self.configure(bootstyle="warning")
+
+    def set_default_style(self):
+        """Смена цвета на обычный, когда пауза отключена"""
+        self.configure(bootstyle="success-striped")
+

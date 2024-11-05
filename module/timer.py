@@ -12,7 +12,7 @@ class Timer(ttk.Label):
         super().__init__(master, font=("Arial", 14), textvariable=self.timer_display, *args, **kwargs)
 
     def start_timer(self):
-        """Запуск таймера"""
+        """Запуск таймера, если он еще не запущен"""
         if not self.running:
             self.running = True
             self.update_timer()

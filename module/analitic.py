@@ -67,6 +67,7 @@ class AnaliticFrame(ttk.Frame):
         self.line_ru = ttk.Frame(self)
         self.line_ru.pack(fill=tk.X)
 
+        # https://www.flaticon.com/ru/packs/mental-health-18094876
         self.box_record_ru = Block_indicator(self.line_ru, image_path='img/speedrecord.png', title='Скорость печати', value=self.record, prefix='з/м')
         self.box_record_ru.pack(side=tk.LEFT, padx=5, pady=5)
 
