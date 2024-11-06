@@ -86,12 +86,12 @@ class Trainer(ttk.Frame):
         
     def key_press(self, e):
         """ Обработка события нажатия на клавиатуру """
-        # Все символы напечатаны
-        if self.is_no_char():
-            self.timer.stop_timer()
+        # (1) Обработка ситуации, когда печать закончена и нажатия на обрабатываються
+        if self.status == 'конец':
+            #self.timer.stop_timer()
             return
         
-        # Обработка паузы, включение и выключение
+        # (2) Переключатель паузы, включить и выключить
         if e.keysym == 'Escape':
             if self.status == 'старт':
                 self.lable_info_var.set('Нажмите Esc что бы продолжыть печать')
@@ -110,19 +110,20 @@ class Trainer(ttk.Frame):
                 print('Продолжаем, установлне старт')
                 return
             
-        # Если пауза, то ничего дальше не делать
+        # (3) Если пауза, то ничего дальше не делать ихнорируем ввод данных
         if self.status == 'пауза':
             return
 
-        # Напечатали ожыдаемый символ
+        # (4) Напечатали ожыдаемый символ
         if e.char == self.get_first_char():
             self.analytic.gl_increment_quantity_true()              # Увеличить кол верных символов на 1
             self.sound_success.start_play(e.keysym)                 # Музыка упешного нажатия кнопки
             self.timer.start_timer()                                # Запустить таймер, если он еще не запуще
             self.progres_bar.update_progress()                      # Обновить прогрес бар +1
 
-            # Завершение ввода, когда ввели последний символ
+            # (7) Завершение ввода, когда ввели последний символ
             if self.is_last_char():
+                self.status = 'конец'
                 self.timer.stop_timer()                             # Остановить таймер в конце
                 self.kayboard.end()                                 # Отключить клавиатуру в конце
                 self.lable_info_var.set('Финиш !!!')                # Обновить текст под клавиатурой
@@ -131,12 +132,16 @@ class Trainer(ttk.Frame):
                 self.analytic.gl_set_max_speed_record(speed)        # Обновить рекорд если он побит
                 self.analytic.gl_increment_minutes_spent(timePr)    # Добавить потреченое время на печать
                 self.print_speed.set(f"Скорсоть: {speed}")          # Отрисовать скорость печати на окне
-                #self.input.end(speed)                               # Покрасить граниуц в зеленый, и отобразить скорость
                 self.analytic.save_data()                           # Сохранить данные в БД json по аналитике
+                self.input.end(speed)
 
-            self.updata_text_done()                                 # Обновить текст который уже напечатан
-            self.update_text_for_printing()                         # Удалить первый введенным символ, обновляем строку ввода
-            self.kayboard.update_active_kay(self.get_first_char())  # Обновить кнопку для подсветки, если она есть
+            # (6) Стандартная обработка введеного верно символа
+            else:
+                self.updata_text_done()                                 # Обновить текст который уже напечатан
+                self.update_text_for_printing()                         # Удалить первый введенным символ, обновляем строку ввода
+                self.kayboard.update_active_kay(self.get_first_char())  # Обновить кнопку для подсветки, если она есть
+
+        # (5) Напечатали не верный символ
         else:
             self.analytic.gl_increment_quantity_false()             # Увеличить кол ошибок на 1
             self.sound_error.start_play(e.keysym)                   # Музыка не успешного нажатия кнопки
