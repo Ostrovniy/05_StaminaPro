@@ -11,44 +11,49 @@ from analytics.analytic import Analytic
 # Главный фрейм для тренажера
 class Trainer(ttk.Frame):
     def __init__(self, master, lesson_data, *args, **kwargs):
+        """Фрейм для прохождения урока, обработка нажяти на клавиатуру и обработка напечатаного текста"""
+        
         super().__init__(master, bootstyle="default", *args, **kwargs)
-
-        self.status = 'старт'                       # старт, пауза, конец
+        self.status = 'старт'                       # Статус печати, {старт, пауза, конец}
         self.lesson = lesson_data                   # Урок который будет проходить {title: '', ....}
         self.title = self.lesson['title']           # Название урока
         self.language = self.lesson['language']     # Языковая раскладка урока
         self.text = self.lesson['text']             # Текст для печати
         self.len_chars = len(self.text)             # Количесвто символов для печати
+        self.analytic = Analytic(self.language)     # Класс уплаврения аналитикой
 
         self.text_for_printing = ttk.StringVar(value=self.text)     # Текст который нужно печатать
         self.text_done = ttk.StringVar(value='')                    # Текст который уже напечатали
-        self.print_speed = ttk.StringVar(value='Рекорт: ')          # Скорость печати текста
+        self.print_speed = ttk.StringVar(value=f'Рекорт: {self.analytic.gl_get_print_speed_record()}') # Текущий рекортд скорости печати
 
         self.sound_success = SoundPygame(path_sound="sounds/click-button.wav")      # Музыка для успешного нажатия
         self.sound_error = SoundPygame(path_sound="sounds/click-button-error.wav")  # Музыка для неуспешного нажатия
 
-        self.analytic = Analytic(self.language)
-
-        # -------------------------------------------------------------------------------------------------
+        # Первая строка, Заголовк урока, текущий рекорт и Таймер ------------------------------------------
         self.box = ttk.Frame(self)
         self.box.pack(fill=tk.X, pady=(10,0))
 
+        # Название урока
         self.title_lable = ttk.Label(self.box, text=f'Урок: {self.title}', anchor='w', font=f'Arial 14 bold')
         self.title_lable.pack(side=tk.LEFT, anchor='w')
 
+        # Текущий рекор по скорости печати
         self.record = ttk.Label(self.box, anchor='e', font=f'Arial 14', textvariable=self.print_speed)
         self.record.pack(side=tk.LEFT, anchor='e', expand=True, padx=(0, 10))
 
+        # Таймер
         self.timer = Timer(self.box)
         self.timer.pack(side=tk.LEFT, anchor='e')
-        # -------------------------------------------------------------------------------------------------
+
+        # (2-5) строка (Поле ввода, Прогрес бар, Клавиатура, Текст подсказка ------------------------------
 
         self.input = Input(self, self.text_for_printing, self.text_done)            # Текст для печати и напечатанный текст
         self.progres_bar = HorizontalProgressbar(self, self.len_chars)              # Шкала выполнения, насколько текст уже напечатан
         self.kayboard = Keyboard(self, self.get_first_char(), self.language)        # Клавиатура, передаем первый символл для подсветки его перед началом печати
 
-        # -------------------------------------------------------------------------------------------------
-        self.lable_info_var = ttk.StringVar(value='Введите корректный первый символ и таймер запуститься')
+        # Текстовая метка, для надати на паузу, пишет информацию в каком состояни находиться програма
+        text_info = 'Введите корректный первый символ и таймер запуститься'
+        self.lable_info_var = ttk.StringVar(value=text_info)
         self.lable_info = ttk.Label(self, textvariable=self.lable_info_var)
         self.lable_info.pack()
 
@@ -67,10 +72,6 @@ class Trainer(ttk.Frame):
         """ Вводимый символ явзяеться последним символовм ? """
         return len(self.text_for_printing.get()) == 1
     
-    def is_no_char(self):
-        """ True если символов для печати не осталось """
-        return not self.text_for_printing.get()
-    
     def updata_text_done(self):
         """ Обновить текст который уже напечатан, переменная хранит максимум 12 символов
         Для корректного отображения в поле ввода, размер фрейма и шрифта влияет на колич
@@ -86,9 +87,9 @@ class Trainer(ttk.Frame):
         
     def key_press(self, e):
         """ Обработка события нажатия на клавиатуру """
+
         # (1) Обработка ситуации, когда печать закончена и нажатия на обрабатываються
         if self.status == 'конец':
-            #self.timer.stop_timer()
             return
         
         # (2) Переключатель паузы, включить и выключить
@@ -131,7 +132,6 @@ class Trainer(ttk.Frame):
                 speed = int((self.len_chars/timePr)*60)             # Расчитать скорость печати, 140 знаков в минуту
                 self.analytic.gl_set_max_speed_record(speed)        # Обновить рекорд если он побит
                 self.analytic.gl_increment_minutes_spent(timePr)    # Добавить потреченое время на печать
-                self.print_speed.set(f"Скорсоть: {speed}")          # Отрисовать скорость печати на окне
                 self.analytic.save_data()                           # Сохранить данные в БД json по аналитике
                 self.input.end(speed)
 

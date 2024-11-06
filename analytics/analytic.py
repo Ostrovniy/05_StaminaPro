@@ -2,6 +2,10 @@ import json
 
 class Analytic:
     def __init__(self, leng):
+        """Класс управления аналитикой, принимает параметр leng для аналитики определенного языка
+        load_data - загружает аналитику в переменную self.data
+        save_data - сохраняет данные с self.data в файл аналитики """
+
         self.file_path = "analytics/db.json"
         self.leng = leng
         self.data = {}
@@ -29,9 +33,9 @@ class Analytic:
             self.data["global_en"]["minutes_spent"] += value
 
     def gl_set_max_speed_record(self, value):
-        """Увеличить количество минут печати"""
+        """Обновляет текущий рекор скорости печати если он побит"""
         if self.leng == 'RU':
-            self.data["global_ru"]["print_speed_record"] = max(value, self.data["global_en"]["print_speed_record"])
+            self.data["global_ru"]["print_speed_record"] = max(value, self.data["global_ru"]["print_speed_record"])
         if self.leng == 'EN':
             self.data["global_en"]["print_speed_record"] = max(value, self.data["global_en"]["print_speed_record"])
 
@@ -62,14 +66,6 @@ class Analytic:
             return self.data["global_ru"]["minutes_spent"]
         if self.leng == 'EN':
             return self.data["global_en"]["minutes_spent"]
-    
-    def get_global(self):
-        """Получить глобальную аналитику относительно языка"""
-        config = {
-            'RU': self.data['global_ru'],
-            'EN': self.data['global_en'],
-        }
-        return config[self.leng]
     
     def load_data(self):
         """Загружает данные из JSON-файла и сохраняет их в переменной. self.data"""

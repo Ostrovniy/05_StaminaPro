@@ -18,7 +18,7 @@ class Timer(ttk.Label):
             self.update_timer()
 
     def stop_timer(self):
-        """Остановка таймера"""
+        """Остановка таймера или поставить на паузку"""
         self.running = False
 
     def update_timer(self):
